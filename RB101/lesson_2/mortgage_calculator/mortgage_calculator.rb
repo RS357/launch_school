@@ -117,7 +117,7 @@ while keep_going == true
                              MESSAGES['enter_loan_duration_years'])
 
   loan_months = get_from_user(loan_months, method(:loan_months?),
-                     MESSAGES['enter_loan_duration_months'])
+                              MESSAGES['enter_loan_duration_months'])
 
   total_loan_months = loan_months + (loan_years * 12)
 
@@ -125,7 +125,7 @@ while keep_going == true
 
   monthly_payment = loan_amount * (monthly_rate / (1 -
                                     (1 + monthly_rate)**(-total_loan_months)))
-  
+
   total_of_payments = (total_loan_months * monthly_payment).round(2)
 
   result = <<~MSG
