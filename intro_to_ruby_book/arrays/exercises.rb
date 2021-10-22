@@ -1,39 +1,35 @@
-# Q1
-arr = [1, 3, 5, 7, 9, 11]
-number = 3
+#Q1
 
-puts arr.include?(number)
+# arr = [1, 3, 5, 7, 9, 1]
+# number = 3 
 
+# arr.each {|x| puts "number in arr" if x == number}
 
- # Q2 - 1
- 
-#  arr = [['b'], ['b', 2] ['b', 3], ['a', 1], ['a', 2], ['a', 3]]
+#Q2 
+# 1) returns 1 , arr is [["b"], ["b", 2], ["b", 3], ["a", 1], ["a", 2], ["a", 3]]
+# 2) returns [1, 2, 3], arr is [["b"], ["a", [1, 2, 3]]]
 
-#  => 1
+#Q3  returned = arr.last.first
 
-# Q2 - 2
-# arr = [ ["b"], ["a", [1, 2, 3] ] ]
+#Q4
+#1) => 3
+#2) NoMethodError (undefined method `[]' for #<Enumerator: [15, 7, 18, 5, 12, 8, 5, 1]:index>)
+#3) => 8
 
-# => [[1, 2, 3]]
+#Q5
+#a = "e", b = "A", c = nil
 
-# Q3
+#Q6 
+# you can only refer to array indexes using integers. 
+# can be fixed with: names[3] = "jody"
 
-# arr.last.first
+#Q7
+# arr = [1, 2, 3, 4]
+# arr.each_with_index { |val, ind| puts "#{ind}, #{val}"}
 
-# Q4  - 1) 3, 2) aNoMethodError (undefined method `[]' for #<Enumerator: [1, 2, 3, 4]:index>), 3) 8
+#Q8
+# arr = [1, 2, 3, 4]
+# arr2 = arr.map{|val| val += 2}
 
-# Q5 - a is "e", b is "A", c is nil
-
-# Q6 - problem is that you are using a string value as the key instead of an integer value - and array indexes are integers. You can fix it 
-# by using names[3] = jody instead
-
-# Q7
-arr = ['red', 'blue', 'yellow', 'green'] 
-
-arr.each_with_index { |val, ind| puts "#{ind}, #{val}")
-
-p arr = [1, 2, 3, 4, 5]
-
-#Q8 
-p arr2 = arr.map { |n| n + 2  }
-
+# p arr
+# p arr2

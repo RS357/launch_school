@@ -1,11 +1,8 @@
 i = 0
 loop do 
-  i += 2
-  if i == 4
-    next
-  end
+  i = i + 2 
   puts i
   if i == 10
-    break
+    break     # this will cause execution to exit the loop
   end 
-end
+end 

@@ -1,10 +1,10 @@
 x = 0
 
-while x <= 10
-  if x == 7
-    break 
+while x <= 10 
+  if x == 7 
+    break
   elsif x.odd? 
-    puts x
+    puts x 
   end 
-  x += 1
+  x += 1 
 end 

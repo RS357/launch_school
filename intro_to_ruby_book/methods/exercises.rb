@@ -1,31 +1,31 @@
-# Question 1
-
+# Q1
 def greeting(name) 
-  return "Hello " + name
-end
-
-puts greeting "Riz"
-
-# Question 2
-
-# 1) 2
-# 2) nil
-# 3) "Joe""
-# 4) "four"
-# 5) nil
-
-# Question 3
-
-def multiply(a, b) 
-  a * b
+  puts "Hi #{name}" 
 end 
 
-puts multiply 3, 2
+puts greeting("Riz")
 
+#Q2
+#1) => 2
+#2) => nil
+#3) =>  nil
+#4) => "four"
+#5) => nil 
 
-# Question 4 - prints nothing 
+#Q3 
+# def multiply(a, b) 
+#   a*b
+# end 
 
-# Question 5 - returns nil
+# puts multiply(5, 2)
 
-# Question 6 - Only one argument was passed to a method calculate_product with 2 parameters. 
+#Q4) Will print nothing 
 
+#Q5) 
+
+def scream(words) 
+  words = words + "!!!!"
+  puts words 
+end 
+
+p scream("Yipee!")

@@ -1,13 +1,17 @@
+#Q1
 puts "What is your first name?"
+first_ name = gets.chomp
 
-first_name = gets.chomp
+puts "What's your last name?" 
+last_name = gets.chomp
 
-puts "What is your second name?"
+puts "Hi #{first_name + last_name}"
 
-second_name = gets.chomp
 
-puts "Hello " + first_name + ' ' + second_name 
+#Q3
+puts "Hello #{name}!"
 
-10.times do 
-  puts first_name
-end 
+#Q4
+10.times {puts name}
+
+

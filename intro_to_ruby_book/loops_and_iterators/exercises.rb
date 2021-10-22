@@ -1,21 +1,23 @@
-# Q1
-# [1, 2, 3, 4, 5]
+#Q1 It returns the array referenced by the variable x
 
-# Q2 
-# input = ''
-# while input != 'STOP'
-#   input = gets.chomp 
-#     puts input
+#Q2
+# input = ""
+# loop do 
+#   input = gets.chomp
+#   if input == "STOP" 
+#     break
+#   end 
+#   puts "your input is: #{input}" 
 # end 
 
-# Q3
-def countdown(num) 
-  if num <= 0
+#Q3
+def count(num) 
+  if num <= 0 
     puts num
-    return
-  end
-  puts num
-  countdown(num - 1)
-end
+  else 
+    puts num
+    count(num - 1) 
+  end 
+end 
 
-countdown(10)
+count(-3)
