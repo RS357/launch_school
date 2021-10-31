@@ -18,7 +18,8 @@
 // 3) The while condition will always return true when the 1 is assigned to counter. 
 //   Also the test on line 7 never passes i.e. counter is never greater than 2.
 
-// 4) It produces no error and sends 5 to the console. 
+// 4) This produces no error because all three clauses in the for loop are optional. 
+//    It sends to the console 1, 2, 3, 4, 5
 
 // 5) 
 
