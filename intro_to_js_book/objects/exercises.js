@@ -1,7 +1,7 @@
 // 1) 
 // person.name;
 
-//2 ) 
+//2 ) All of them - they are coerced to strings if assigned as object keys. 
 
 // 3) 
 
@@ -36,13 +36,14 @@
 // let myObj = Object.create(myProtoObj);
 
 // 6) 
-//
-//
+//      primitives: "foo", 3.1415, false,  undefined, 
+//      objects: ["a", "b", "c"], function bar() { return "bar"; }, { a: 1, b: 2 }
+//      neither: foo
 
 // 7)
-//
-//
-//
+//  myObj.quz = 3; 
+//  They do not produce the same output - let...in iterates over the object and its prototype, whereas 
+//  Object.keys() just returns an array of that object's keys (not its prototypes) 
 
 // 8) 
 // let copyObj = (obj, arr = undefined) => {
@@ -68,7 +69,8 @@
 // let newObj3 = copyObj(objToCopy, [ 'bar' ]);
 // console.log(newObj3);       // => { bar: 2 }
 
-// 9) 
+// 9) foo.a: "hi",
+//    qux: "hello"
 
 // 10)
 // primitive values: 6 -  1, 2, "a", "b", false, null 

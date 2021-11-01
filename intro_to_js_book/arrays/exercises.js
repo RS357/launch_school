@@ -1,4 +1,4 @@
-// 1) array1: 4, array2: 5, array3: 0, array4: 3, 
+// 1) array1: 4, array2: 5, array3: 0, array4: 3, array5: 101
 
 // 2
 // let myArray = [1, 3, 6, 11, 4, 2,
@@ -68,3 +68,4 @@
 // console.log(filtered.length > 0)
 
 // 10) 
+// arr[1][3] = 606;
