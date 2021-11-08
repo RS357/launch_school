@@ -39,3 +39,16 @@
 
 // and vica versa 
 // let object = Object.fromEntries(nestedArray);
+
+// Convert an object to a nested array 
+//let nestedPerson = Object.entries(person);
+
+// ... and vice versa 
+//let person = Object.fromEntries(nestedArray);
+
+// Cloning a Person 
+// function clone(obj) {
+//   return Object.assign({}, obj);
+// }
+
+

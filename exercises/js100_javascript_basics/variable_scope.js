@@ -1,4 +1,4 @@
-/// What's my value (Part 1) 
+/// What's my value (Part 1) : 
 
 // What's my value? (Part 2) : 
 
