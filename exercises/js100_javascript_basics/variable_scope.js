@@ -1,4 +1,4 @@
-/// What's my value (Part 1) : 
+/// What's my value (Part 1) : undefined - because the var greeting is hoisted as undefined before the console.log() call.
 
 // What's my value? (Part 2) : 
 
