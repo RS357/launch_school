@@ -1,5 +1,5 @@
 // First Element 
-// let first = arr => arr[0];
+// let first = arr => arr[o]; would return undefined 
 
 // Last Element 
 //let last = arr => arr[arr.length - 1];
@@ -12,9 +12,12 @@
 
 // Alphabet 
 // let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+// alphabet.split("");
 
-// Filter 
+// Filter
 // let scores = [96, 47, 113, 89, 100, 102];
+// let count = scores.filter(num => num >= 100);
+// console.log(count.length);
 
 // Vocabulary 
 // let vocabulary = [
@@ -34,11 +37,14 @@
 //   'Aruba', 'Paris', 'Bora Bora', 'Barcelona', 'Rio de Janeiro',
 //   'Marrakesh', 'New York City'];
 
-// let contains = (destination, list) => {
-//   for (let i = 0; i < list.length; i += 1) {
-//     if (list[i] === destination) {
-//       return true;
-//     }
+// let contains = (destination, destinations) => {
+//   counter = 0; 
+//   while (counter < destinations.length) {
+//      if (destinations[counter] === destination) {
+//        return true; 
+//        break; 
+//      } 
+//      counter += 1;
 //   }
 //   return false;
 // }
