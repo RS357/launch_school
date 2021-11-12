@@ -47,20 +47,20 @@
 //8) 
 // Write a function that logs whether a number is between 0 and 50 (inclusive), between 51 and 100 (inclusive), greater than 100, or less than 0.
 
-let numberRange = (num) => {
-  switch(true) {
-    case (num < 0): 
-      console.log(`${num} is less than 0`);
-      break 
-    case (num >= 0 && num <= 50): 
+let numberRange = num => {
+  switch (true) {
+    case num >= 0 && num <= 50: 
       console.log(`${num} is between 0 and 50`);
       break;
-    case (num >= 51 && num <= 100): 
+    case num >= 51 && num <= 100: 
       console.log(`${num} is between 51 and 100`);
-      break 
-    case(num > 100): 
+      break; 
+    case num > 100: 
       console.log(`${num} is greater than 100`);
-      break 
+      break; 
+    case num < 0: 
+      console.log(`${num} is less than 0`);
+      break; 
   }
 }
 

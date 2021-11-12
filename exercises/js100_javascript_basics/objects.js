@@ -26,7 +26,7 @@
 // jane.greet('Bobby'); // Hej, Bobby!
 
 // Dot Notation vs Bracket Notation 
-//
+// snippet 1 will log {prefix: 'Indian'}, snippet 2 will log: {Indian: 'Pacfic'}
 
 // Is it true?
 // Object propery names are always strings, and the if condition checks for a boolean type of true.
