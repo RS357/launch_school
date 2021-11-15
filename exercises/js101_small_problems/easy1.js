@@ -28,6 +28,22 @@
 //   `The area of the room is ${areaInMeters.toFixed(2)} square meters (${areaInFeet.toFixed(2)} square feet).`
 // );
 
+//Tip Calculator
+// let readlineSync = require("readline-sync");
+
+// let bill = parseFloat(readlineSync.question("What is the bill?\n"));
+
+// let percentage = parseFloat(
+//   readlineSync.question("What is the tip percentage??\n")
+// );
+
+// let tip = bill * (percentage / 100);
+
+// let total = bill + tip;
+
+// console.log(`The tip is $${tip.toFixed(2)}`);
+// console.log(`The total is $${total.toFixed(2)}`);
+
 // Sum or Product of Consecutive Integers
 // function computeSum(targetNum) {
 //   let total = 0;
