@@ -48,13 +48,13 @@ let readlineSync = require("readline-sync");
 // console.log(`${firstNumber} ** ${secondNumber} = ${firstNumber ** secondNumber}`);
 
 // The End is Near But Not Here 
-let penultimate = word => {
-  let wordCollection = word.split(" ");
-  return wordCollection[wordCollection.length - 2]
-}
+// let penultimate = word => {
+//   let wordCollection = word.split(" ");
+//   return wordCollection[wordCollection.length - 2]
+// }
 
-console.log(penultimate("last word") === "last"); // logs true
-console.log(penultimate("Launch School is great!") === "is"); // logs true
+// console.log(penultimate("last word") === "last"); // logs true
+// console.log(penultimate("Launch School is great!") === "is"); // logs true
 
 // Suppose we need a function that retrieves the middle word of a phrase/sentence. 
 // What edge cases need to be considered? How would you handle those edge 
