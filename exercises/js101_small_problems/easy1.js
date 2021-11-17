@@ -107,3 +107,52 @@
 //     return year % 4 === 0;
 //   }
 // }
+
+// Multiples of 3 and 5 (my solution)
+// let multisum = limit => {
+//   let multiples = []; 
+//   let factors = [3, 5]
+//   factors.sort(); 
+//   let smallestFactor = factors[0];
+//   let largestFactor = factors[factors.length - 1];
+//   if (limit < smallestFactor) return 0; 
+//   if ((limit >= smallestFactor) && (limit < largestFactor)) {
+//     factors = factors.filter(val => val <= limit);
+//   }
+//   for (factor of factors) {
+//     counter = factor; 
+//     multiples.push(counter); 
+//     while ((counter <= limit) && ((counter + factor) <= limit)) {
+//       counter += factor; 
+//       multiples.push(counter); 
+//     }
+//   }
+//   multiples.sort();
+//   multiples = multiples.filter( (num, index) => num !== multiples[index - 1])
+//   return multiples.reduce( (prev, current) => prev + current);
+// }
+
+// Multiples of 3 and 5 - launch school solution 
+// function isMultiple(number, divisor) {
+//   return number % divisor === 0;
+// }
+
+// function multisum(maxValue) {
+//   let sum = 0; 
+
+//   for (let number = 1; number <= maxValue; number += 1) {
+//     if (isMultiple(number, 3) || isMultiple(number, 5)) {
+//       sum += number; 
+//     }
+//   }
+//   return number;
+// }
+
+// UTF-16 String Value 
+let utf16Value = str => {
+  if (str === "") return 0; 
+  let counter = 0; 
+  let arr = str.split("");
+  arr.forEach(char => counter += char.charCodeAt());
+  return counter;  
+}
