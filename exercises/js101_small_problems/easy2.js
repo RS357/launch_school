@@ -75,5 +75,27 @@ let readlineSync = require("readline-sync");
 
 // let xor = (val1, val2) => {
 //   if ((!val1 && val2) || (val1 && !val2)) return true;
-//   return false;   
+//   return false;
 // }
+
+// Odd Lists
+// let oddities = arr => {
+//   if (arr.length <= 1) return arr;
+//   if (arr.length === 2) return arr.slice(0, 1);
+//   let returnArr = [];
+//   for (let idx = 0; idx < arr.length; idx += 2) {
+//     returnArr.push(arr[idx]);
+//   }
+//   return returnArr;
+// };
+
+//Further Exploration
+// let evens = arr => {
+//   if (arr.length <= 1) return arr;
+//   if (arr.length === 2) return arr.slice(1, 2);
+//   let returnArr = [];
+//   arr.forEach((val, index) => {
+//     if (index % 2 !== 0) returnArr.push(val);
+//   });
+//   return returnArr;
+// };
