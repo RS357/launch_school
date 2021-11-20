@@ -181,8 +181,5 @@ rules:
     - error
     - words: true
       nonwords: false
-<<<<<<< HEAD
   vars-on-top: error
-=======
-  vars-on-top: error
->>>>>>> 84035eeb2f7df3e440802b9394cf8367aecdd127
+  

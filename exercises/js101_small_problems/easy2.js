@@ -62,3 +62,18 @@ let readlineSync = require("readline-sync");
 // word of a phrase or sentence. It should handle all of the edge cases 
 // you thought of.
 
+// let middle = str => {
+//   if (!(typeof str === "string")) return "please pass in a string";
+//   if (!str.includes(" ")) return str; 
+  
+//   let splitStr = str.split(" ");
+//   if (splitStr.length % 2 === 0) {
+//     return "Please enter a string containing an odd number of words"
+//   } 
+//   return splitStr[Math.round(splitStr.length / 2) - 1]
+// }
+
+// let xor = (val1, val2) => {
+//   if ((!val1 && val2) || (val1 && !val2)) return true;
+//   return false;   
+// }
