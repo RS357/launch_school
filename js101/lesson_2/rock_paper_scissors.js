@@ -32,12 +32,14 @@ while (true) {
     choice = readline.question();
   }
 
-  let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
+  let randomIndex = Math.round(Math.random() * VALID_CHOICES.length);
+  console.log(`random index: ${randomIndex}`);
+  if (randomIndex === 3) randomIndex = 2;
   let computerChoice = VALID_CHOICES[randomIndex];
 
   displayWinner(choice, computerChoice);
 
-  prompt("Do you want to play again (y/n?");
+  prompt("Do you want to play again (y/n)?");
   let answer = readline.question().toLowerCase();
   while (answer[0] !== "n" && answer[0] !== "y") {
     prompt("Please enter 'y' or 'n'.");
