@@ -178,17 +178,17 @@ let readlineSync = require("readline-sync");
 // console.log(stringToSignedInteger("+100") === 100); // logs true
 
 // Convert a Number to a String!
-let integerToString = num => {
-  let str = "";
-  const DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  if (num === 0) return "0";
-  while (num > 0) {
-    let digit = num % 10;
-    str = DIGITS[digit] + str;
-    num = Math.trunc(num / 10);
-  }
-  return str;
-};
+// let integerToString = num => {
+//   let str = "";
+//   const DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+//   if (num === 0) return "0";
+//   while (num > 0) {
+//     let digit = num % 10;
+//     str = DIGITS[digit] + str;
+//     num = Math.trunc(num / 10);
+//   }
+//   return str;
+// };
 
 // console.log(integerToString(4321));        // "4321"
 // console.log(integerToString(0));           // "0"

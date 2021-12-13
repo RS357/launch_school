@@ -1,23 +1,106 @@
 const readline = require("readline-sync");
-const VALID_CHOICES = ["rock", "paper", "scissors"];
-
-
+const VALID_CHOICES = ["rock", "paper", "scissors", "lizard", "spock"];
 
 function displayWinner(choice, computerChoice) {
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
 
-  if ((choice === "rock" && computerChoice === "scissors") ||
-      (choice === "paper" && computerChoice === "rock") ||
-      (choice === "scissors" && computerChoice === "paper")) {
-    prompt("You win!");
-  } else if ((choice === "rock" && computerChoice === "paper") ||
-            (choice === "paper" && computerChoice === "scissors") ||
-            (choice === "scissors" && computerChoice === "rock")) {
-    prompt("Computer wins!");
-  } else {
-    prompt("It's a tie");
+  switch (true) {
+    // Winning cases
+    case (choice === "rock" && computerChoice === "lizard"):
+      prompt("You win!");
+      break;
+    case (choice === "rock" && computerChoice === "scissors"):
+      prompt("You win!");
+      break;
+    case (choice === "lizard" && computerChoice === "spock"):
+      prompt("You win!");
+      break;
+    case (choice === "lizard" && computerChoice === "paper"):
+      prompt("You win!");
+      break;
+    case (choice === "spock" && computerChoice === "scissors"):
+      prompt("You win!");
+      break;
+    case (choice === "spock" && computerChoice === "rock"):
+      prompt("You win!");
+      break;
+    case (choice === "scissors" && computerChoice === "paper"):
+      prompt("You win!");
+      break;
+    case (choice === "scissors" && computerChoice === "lizard"):
+      prompt("You win!");
+      break;
+    case (choice === "paper" && computerChoice === "rock"):
+      prompt("You win!");
+      break;
+    case (choice === "paper" && computerChoice === "spock"):
+      prompt("You win!");
+      break;
+    case (choice === "rock" && computerChoice === "lizard"):
+      prompt("You win!");
+      break;
+    case (choice === "rock" && computerChoice === "scissors"):
+      prompt("You win!");
+      break;
+    case (choice === "lizard" && computerChoice === "spock"):
+      prompt("You win!");
+      break;
+    case (choice === "lizard" && computerChoice === "paper"):
+      prompt("You win!");
+      break;
+    case (choice === "spock" && computerChoice === "scissors"):
+      prompt("You win!");
+      break;
+    case (choice === "spock" && computerChoice === "rock"):
+      prompt("You win!");
+      break;
+    case (choice === "scissors" && computerChoice === "paper"):
+      prompt("You win!");
+      break;
+    case (choice === "scissors" && computerChoice === "lizard"):
+      prompt("You win!");
+      break;
+    case (choice === "paper" && computerChoice === "rock"):
+      prompt("You win!");
+      break;
+    case (choice === "paper" && computerChoice === "spock"):
+      prompt("You win!");
+      break;
+    //Losing Cases
+    case (choice === "lizard" && computerChoice === "rock"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "scissors" && computerChoice === "rock"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "spock" && computerChoice === "lizard"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "paper" && computerChoice === "lizard"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "scissors" && computerChoice === "spock"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "rock" && computerChoice === "spock"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "paper" && computerChoice === "scissors"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "lizard" && computerChoice === "scissors"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "rock" && computerChoice === "paper"):
+      prompt("Computer wins!");
+      break;
+    case (choice === "spock" && computerChoice === "paper"):
+      prompt("Computer wins!");
+      break;
+    default:
+      prompt("It's a tie");
   }
-}
+};
 
 function prompt(message) {
   console.log(`=> ${message}`);
