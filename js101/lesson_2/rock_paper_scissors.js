@@ -1,102 +1,110 @@
 const readline = require("readline-sync");
-const VALID_CHOICES = ["rock", "paper", "scissors", "lizard", "spock"];
+const VALID_CHOICES = {
+  rock: "r",
+  paper: "p",
+  scissors: "sc",
+  lizard: "l",
+  spock: "sp"
+};
+
+let computerWinCount = 0;
+let humanWinCount = 0;
 
 function displayWinner(choice, computerChoice) {
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
-
   switch (true) {
     // Winning cases
     case (choice === "rock" && computerChoice === "lizard"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "rock" && computerChoice === "scissors"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "lizard" && computerChoice === "spock"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "lizard" && computerChoice === "paper"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "spock" && computerChoice === "scissors"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "spock" && computerChoice === "rock"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "scissors" && computerChoice === "paper"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "scissors" && computerChoice === "lizard"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "paper" && computerChoice === "rock"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "paper" && computerChoice === "spock"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "rock" && computerChoice === "lizard"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "rock" && computerChoice === "scissors"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "lizard" && computerChoice === "spock"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "lizard" && computerChoice === "paper"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "spock" && computerChoice === "scissors"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "spock" && computerChoice === "rock"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "scissors" && computerChoice === "paper"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "scissors" && computerChoice === "lizard"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "paper" && computerChoice === "rock"):
       prompt("You win!");
-      break;
+      return "human";
     case (choice === "paper" && computerChoice === "spock"):
       prompt("You win!");
-      break;
+      return "human";
     //Losing Cases
     case (choice === "lizard" && computerChoice === "rock"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "scissors" && computerChoice === "rock"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "spock" && computerChoice === "lizard"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "paper" && computerChoice === "lizard"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "scissors" && computerChoice === "spock"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "rock" && computerChoice === "spock"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "paper" && computerChoice === "scissors"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "lizard" && computerChoice === "scissors"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "rock" && computerChoice === "paper"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     case (choice === "spock" && computerChoice === "paper"):
       prompt("Computer wins!");
-      break;
+      return "computer";
     default:
       prompt("It's a tie");
   }
@@ -107,20 +115,37 @@ function prompt(message) {
 }
 
 while (true) {
-  prompt(`Choose one: ${VALID_CHOICES.join(", ")}`);
+  let validChoicesKeys = Object.keys(VALID_CHOICES);
+  let validChoicesVals = Object.values(VALID_CHOICES);
+
+  prompt(`Choose one: ${validChoicesKeys.join(", ")}`);
   let choice = readline.question();
 
-  while (!VALID_CHOICES.includes(choice)) {
-    prompt("That's not a valid choice");
+  while (!validChoicesKeys.includes(choice) &&
+   !validChoicesVals.includes(choice)) {
+    if (choice === "s") {
+      prompt("two options begin with s - please enter the first and second letter");
+    } else {
+      prompt("That's not a valid choice");
+    }
     choice = readline.question();
   }
 
-  let randomIndex = Math.round(Math.random() * VALID_CHOICES.length);
-  console.log(`random index: ${randomIndex}`);
-  if (randomIndex === 3) randomIndex = 2;
-  let computerChoice = VALID_CHOICES[randomIndex];
+  let randomIndex = Math.round(Math.random() * validChoicesKeys.length);
+  if (randomIndex === 5) randomIndex = 4;
+  console.log(`randomIndex is ${randomIndex}`);
+  console.log(`validChoicesVals[randomIndex] is: ${validChoicesKeys[randomIndex]}`);
+  let computerChoice = validChoicesKeys[randomIndex];
 
-  displayWinner(choice, computerChoice);
+  let winner = displayWinner(choice, computerChoice);
+  if (winner === "human") humanWinCount += 1;
+  if (winner === "computer") computerWinCount += 1;
+
+  if (humanWinCount === 3 || computerWinCount === 3) {
+    prompt(`best of three reached - ${winner} wins!`);
+    prompt("Game over!");
+    break;
+  }
 
   prompt("Do you want to play again (y/n)?");
   let answer = readline.question().toLowerCase();
