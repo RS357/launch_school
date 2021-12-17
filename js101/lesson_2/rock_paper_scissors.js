@@ -26,8 +26,11 @@ function playerWins(choice, computerChoice) {
   return WINNING_COMBOS[choice].includes(computerChoice);
 }
 
-function result(choice, computerChoice) {
+function displayChoices(choice, computerChoice) {
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
+}
+
+function result(choice, computerChoice) {
   if (playerWins(choice, computerChoice)) {
     return "player";
   } else if (choice === computerChoice) {
@@ -41,16 +44,12 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-function incrementScore(winner) {
-  winner += 1;
+function incrementScore(scores, winner) {
+  scores[winner] += 1;
 }
 
-function setScore(winner) {
-  if (winner === "player") {
-    incrementScore(scores.player);
-  } else if (winner === "computer") {
-    incrementScore(scores.computer);
-  }
+function setScore(scores, winner) {
+  incrementScore(scores, winner);
 }
 
 function printScore (winner) {
@@ -94,31 +93,49 @@ function retrieveChoice() {
   return choice;
 }
 
-while (true) {
-  let choice = retrieveChoice();
+function someoneGrandWinner() {
+  return (scores.player === GOAL_WINS) || (scores.computer === GOAL_WINS);
+}
 
-  let computerChoice = randomChoice();
-
-  let winner = result(choice, computerChoice);
-
-  setScore(winner);
-
-  printScore(winner);
-
-  console.log(`scores: ${JSON.stringify(scores)}`);
-
-  if (scores.player === GOAL_WINS || scores.computer === GOAL_WINS) {
-    prompt(`best of three reached - ${winner} wins!`);
-    prompt("Game over!");
-    break;
+function displayGrandWinner() {
+  let winner;
+  if (scores.player === GOAL_WINS) {
+    winner = "player";
+  } else {
+    winner = "computer";
   }
+  prompt(`best of three reached - ${winner} wins!`);
+  prompt("Game over!");
+}
 
+function retrievePlayAgainChoice() {
   prompt("Do you want to play again (y/n)?");
   let answer = readline.question().toLowerCase();
   while (answer[0] !== "n" && answer[0] !== "y") {
     prompt("Please enter 'y' or 'n'.");
     answer = readline.question().toLowerCase();
   }
+  return answer[0];
+}
 
-  if (answer[0] !== "y") break;
+while (true) {
+  let choice = retrieveChoice();
+
+  let computerChoice = randomChoice();
+
+  displayChoices(choice, computerChoice);
+
+  let winner = result(choice, computerChoice);
+
+  setScore(scores, winner);
+
+  printScore(winner);
+
+  if (someoneGrandWinner()) {
+    displayGrandWinner();
+  }
+
+  let playAgainChoice = retrievePlayAgainChoice();
+
+  if (playAgainChoice !== "y") break;
 }
