@@ -77,7 +77,7 @@ function retrieveChoice() {
   let validChoicesKeys = Object.keys(VALID_CHOICES);
   let validChoicesVals = Object.values(VALID_CHOICES);
   prompt(`Choose one: ${validChoicesVals.join(", ")}`);
-  let choice = readline.question();
+  let choice = readline.question().toLowerCase();
 
   while (!validChoicesKeys.includes(choice) &&
    !validChoicesVals.includes(choice)) {
@@ -86,7 +86,7 @@ function retrieveChoice() {
     } else {
       prompt("That's not a valid choice");
     }
-    choice = readline.question();
+    choice = readline.question().toLowerCase();
     if (choice.length <= 2) choice = VALID_CHOICES[choice];
   }
   if (choice.length <= 2) choice = VALID_CHOICES[choice];
@@ -109,16 +109,31 @@ function displayGrandWinner() {
 }
 
 function retrievePlayAgainChoice() {
+  let validAnswers = ["yes", "no", "y", "n"];
   prompt("Do you want to play again (y/n)?");
   let answer = readline.question().toLowerCase();
-  while (answer[0] !== "n" && answer[0] !== "y") {
+  while (!validAnswers.includes(answer)) {
     prompt("Please enter 'y' or 'n'.");
     answer = readline.question().toLowerCase();
   }
   return answer[0];
 }
 
+function resetScores(scores) {
+  let scoreKeys = Object.keys(scores);
+  scoreKeys.forEach(function(key) {
+    scores[key] = 0;
+  });
+}
+
+function welcomeMessage(GOAL_WINS) {
+  prompt("Welcome to Lizard Spock!");
+  prompt(`Best of ${GOAL_WINS} wins...`);
+}
+
 while (true) {
+  welcomeMessage(GOAL_WINS);
+
   let choice = retrieveChoice();
 
   let computerChoice = randomChoice();
@@ -133,6 +148,7 @@ while (true) {
 
   if (someoneGrandWinner()) {
     displayGrandWinner();
+    resetScores(scores);
   }
 
   let playAgainChoice = retrievePlayAgainChoice();
