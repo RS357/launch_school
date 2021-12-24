@@ -53,3 +53,29 @@
 // console.log(stringy(9));    // "101010101"
 // console.log(stringy(4));    // "1010"
 // console.log(stringy(7));    // "1010101"
+
+// Fibonacci Number Location By Length
+
+// let findFibonacciIndexByLength = num => {
+//   let first = 1n;
+//   let second = 1n;
+//   let count = 2n;
+//   let fibonacci;
+
+//   do {
+//     fibonacci = first + second;
+//     first = second;
+//     second = fibonacci;
+//     count += 1n;
+//   } while (String(second).length < num);
+
+//   return count;
+// };
+
+// Right Triangles 
+
+// let triangle = num => {
+//   while (num > 0) {
+//     console.log(`${" ".repeat}`)
+//   }
+// }
