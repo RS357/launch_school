@@ -62,7 +62,7 @@
 //   let count = 2n;
 //   let fibonacci;
 
-//   do {
+//   do 
 //     fibonacci = first + second;
 //     first = second;
 //     second = fibonacci;
@@ -75,7 +75,63 @@
 // Right Triangles 
 
 // let triangle = num => {
-//   while (num > 0) {
-//     console.log(`${" ".repeat}`)
+//   let counter = 1;
+//   while (counter <= num) {
+//     console.log(`${" ".repeat(num - counter)}${"*".repeat(counter)}`);
+//     counter += 1;
+//   }
+// };
+
+
+// Madlibs
+
+// let readLine = require("readline-sync");
+
+// let noun = readLine.question("Please enter a noun: ");
+// let verb = readLine.question("Please enter a verb: ");
+// let adjective = readLine.question("Please enter an adjective: ");
+// let adverb = readLine.question("Please enter a adverb: ");
+
+// console.log(`Do you ${verb} your ${adjective} ${noun} ${adverb}? That's hilarious!`);
+// console.log(`The ${adjective} ${noun} ${verb}s ${adverb} over the lazy ${noun}.`);
+// console.log(`The ${noun} quickly ${verb}s up ${adjective} Joe's turtle.`);
+
+
+// Double Doubles
+
+// let twice = num => {
+//   let stringNum = String(num);
+//   if (stringNum.length % 2 !== 0) return num * 2;
+//   let firstHalfStringNum = stringNum.slice(0, ((stringNum.length - 1) / 2) + 1);
+//   // console.log(`stringNum: ${stringNum},  firstHalfStringNum: ${firstHalfStringNum}`);
+//   if ((firstHalfStringNum + firstHalfStringNum) === String(num)) return num;
+//   return num * 2;
+// };
+
+// let calculateGrade = num => {
+//   switch (true) {
+//     case 90 <= num && num <= 100:
+//       console.log("A");
+//       break;
+//     case 80 <= num && num < 90:
+//       console.log("B");
+//       break;
+//     case 70 <= num && num < 80:
+//       console.log("C");
+//       break;
+//     case 60 <= num && num < 70:
+//       console.log("D");
+//       break;
+//     case 0 <= num && num < 60:
+//       console.log("F");
+//       break;
 //   }
 // }
+
+// let getGrade = (num1, num2, num3) => {
+//   let mean = (num1 + num2 + num3) / 3;
+//   calculateGrade(mean);
+// };
+
+// Clean up the words 
+

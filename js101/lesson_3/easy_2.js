@@ -40,9 +40,39 @@
 // let spliced = arr.splice(2, 1);
 // console.log(arr);
 
-// Q7)
+// Q6)
 // let flintstones = ["Fred", "Wilma"];
 // flintstones.push(["Barney", "Betty"]);
 // flintstones.push(["Bambam", "Pebbles"]);
-// let newArr = flintstones.flat();
+// let newArr = [];
+// newArr = newArr.concat(...flintstones);
 // console.log(newArr);
+
+// Q7)
+// let flintstones = { Fred: 0, Wilma: 1, Barney: 2, Betty: 3, Bambam: 4, Pebbles: 5 };
+// let newArr = Object.entries(flintstones).filter(pair => pair[0] === "Barney").shift();
+// console.log(newArr);
+
+// Q8)
+// let numbers = [1, 2, 3, 4]; // true
+// let table = { field1: 1, field2: 2, field3: 3, field4: 4 }; // false
+// console.log(Array.isArray(numbers));
+// console.log(Array.isArray(table));
+
+// Q9)
+// let title = "Flintstone Family Members";
+// let titleLength = title.length;
+// let tableWidth = 40;
+// let spaceToAddEachSide = Math.round((tableWidth - titleLength) / 2);
+// let centeredTitle = `${" ".repeat(spaceToAddEachSide)} ${title} ${" ".repeat(spaceToAddEachSide)}`;
+// console.log(centeredTitle);
+
+ // Q10)
+// let statement1 = "The Flintstones Rock!";
+// let statement2 = "Easy come, easy go.";
+
+// let statement1Count = statement1.split("").filter(char => char === "t").length;
+// let statement2Count = statement2.split("").filter(char => char === "t").length;
+// console.log(statement1Count);
+// console.log(statement2Count);
+
