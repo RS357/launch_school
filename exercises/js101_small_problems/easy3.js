@@ -161,56 +161,46 @@
 
 // What Century is that?
 
-let calculateSingleDigitCentury = century => {
-  if (century === 1) {
-    return "1st";
-  } else if (century === 2) {
-    return "2nd";
-  } else if (century === 3) {
-    return "3rd";
-  } else {
-    return `${String(century)}th`;
-  }
-};
+// let calculateSingleDigitCentury = century => {
+//   if (century === 1) {
+//     return "1st";
+//   } else if (century === 2) {
+//     return "2nd";
+//   } else if (century === 3) {
+//     return "3rd";
+//   } else {
+//     return `${String(century)}th`;
+//   }
+// };
 
-let calculateDoubleDigitCentury = century => {
-  let ones = century % 10;
-  let tens = century % 100;
+// let calculateDoubleDigitCentury = century => {
+//   let ones = century % 10;
+//   let tens = century % 100;
 
-  if (ones === 1 && tens !== 11) {
-    return `${String(century)}st`;
-  } else if (ones === 2 && tens !== 12) {
-    return `${String(century)}nd`;
-  } else if (ones === 3 && tens !== 13) {
-    return `${String(century)}rd`;
-  } else {
-    return `${String(century)}th`;
-  }
-};
+//   if (ones === 1 && tens !== 11) {
+//     return `${String(century)}st`;
+//   } else if (ones === 2 && tens !== 12) {
+//     return `${String(century)}nd`;
+//   } else if (ones === 3 && tens !== 13) {
+//     return `${String(century)}rd`;
+//   } else {
+//     return `${String(century)}th`;
+//   }
+// };
 
-let century = year => {
-  if (year <= 100) return "1st";
-  let century;
-  if (year % 100 >= 1) {
-    century = Math.floor(year / 100) + 1;
-  } else {
-    century = year / 100;
-  }
+// let century = year => {
+//   if (year <= 100) return "1st";
+//   let century;
+//   if (year % 100 >= 1) {
+//     century = Math.floor(year / 100) + 1;
+//   } else {
+//     century = year / 100;
+//   }
 
-  if (century < 10) {
-    return calculateSingleDigitCentury(century);
-  } else {
-    return calculateDoubleDigitCentury(century);
-  }
-};
+//   if (century < 10) {
+//     return calculateSingleDigitCentury(century);
+//   } else {
+//     return calculateDoubleDigitCentury(century);
+//   }
+// };
 
-
-console.log(century(2000));        // "20th"
-console.log(century(2001));        // "21st"
-console.log(century(1965));        // "20th"
-console.log(century(256));         // "3rd"
-console.log(century(5));           // "1st"
-console.log(century(10103));       // "102nd"
-console.log(century(1052));        // "11th"
-console.log(century(1127));        // "12th"
-console.log(century(11201));       // "113th"
