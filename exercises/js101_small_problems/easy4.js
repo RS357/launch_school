@@ -45,16 +45,68 @@ let readlineSync = require("readline-sync");
 
 // Palindromic Strings (Part 1)
 
-let isPalindrome = str => {
-  let loopLimit = Math.ceil(str.length / 2);
-  for (let idx = 0; idx <= loopLimit; idx += 1) {
-    if (str[idx] !== str[str.length - 1- idx]) {
-      return false;
-    }
-  }
-  return true;
+// let isPalindrome = str => {
+//   let loopLimit = Math.ceil(str.length / 2);
+//   for (let idx = 0; idx <= loopLimit; idx += 1) {
+//     if (str[idx] !== str[str.length - 1 - idx]) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+// console.log(isPalindrome('madam'));               // true
+// console.log(isPalindrome('Madam'));               // false (case matters)
+// console.log(isPalindrome("madam i'm adam"));      // false (all characters matter)
+// console.log(isPalindrome('356653'));              // true
+
+// Palindromic Strings (part 2)
+
+// let isAlphaNumeric = char => {
+//   if (isNaN(parseInt(char, 10))) {
+//     return char >= "a" && char <= "z";
+//   } else {
+//     return char >= 0 && char <= 9;
+//   }
+// };
+
+// let removeNonLetterNumbers = str => {
+//   let alphaNumbericStr = "";
+//   for (let idx = str.length; idx >= 0; idx -= 1) {
+//     if (isAlphaNumeric(str[idx])) {
+//       alphaNumbericStr += str[idx];
+//     }
+//   }
+//   return alphaNumbericStr;
+// }
+
+// let isRealPalindrome = str => {
+//   str = str.toLowerCase();
+//   let alphaNumbericStr = removeNonLetterNumbers(str);
+//   return isPalindrome(alphaNumbericStr);
+// };
+
+// Palindromic Numbers
+
+// let isPalindromicNumber = num => {
+//   return String(num) === String(num).split("").reverse().join("");
+// }
+// let runningTotal = arr => {
+//   if (arr.length === 0) return [];
+//   let newArr = [];
+//   let sum = 0;
+//   for (let idx = 0; idx < arr.length; idx += 1) {
+//     newArr.push(sum += arr[idx]);
+//   }
+//   return newArr;
+// }
+
+let runningTotal = arr => {
+  if (arr.length === 0) return [];
+  let sum = 0;
+  return arr.map((_, idx) => (sum += arr[idx]));
 }
-console.log(isPalindrome('madam'));               // true
-console.log(isPalindrome('Madam'));               // false (case matters)
-console.log(isPalindrome("madam i'm adam"));      // false (all characters matter)
-console.log(isPalindrome('356653'));              // true
+
+console.log(runningTotal([2, 5, 13]));             // [2, 7, 20]
+console.log(runningTotal([14, 11, 7, 15, 20]));    // [14, 25, 32, 47, 67]
+console.log(runningTotal([3]));                    // [3]
+console.log(runningTotal([]));                     // []
