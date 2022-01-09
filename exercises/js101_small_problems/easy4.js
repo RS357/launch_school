@@ -100,13 +100,47 @@ let readlineSync = require("readline-sync");
 //   return newArr;
 // }
 
-let runningTotal = arr => {
-  if (arr.length === 0) return [];
-  let sum = 0;
-  return arr.map((_, idx) => (sum += arr[idx]));
-}
+// let runningTotal = arr => {
+//   if (arr.length === 0) return [];
+//   let sum = 0;
+//   return arr.map((_, idx) => (sum += arr[idx]));
+// }
 
-console.log(runningTotal([2, 5, 13]));             // [2, 7, 20]
-console.log(runningTotal([14, 11, 7, 15, 20]));    // [14, 25, 32, 47, 67]
-console.log(runningTotal([3]));                    // [3]
-console.log(runningTotal([]));                     // []
+// Letter Counter (Part 1)
+
+// let stripNonLetters = str => {
+//   let strippedStr = "";
+//   let lowerCaseStr = str.toLowerCase();
+//   for (let char of lowerCaseStr) {
+//     if (char >= "a" && char <= "z") strippedStr += char;
+//   }
+//   return strippedStr;
+// }
+
+// let wordSizes = str => {
+//   if (str.length === 0) return {};
+//   let count = {};
+//   str.split(" ").forEach(word => {
+//     let strippedWord = stripNonLetters(word);
+//     if (strippedWord.length in count) {
+//       count[strippedWord.length] += 1;
+//     } else {
+//       count[strippedWord.length] = 1;
+//     } 
+//   });
+//   return count;
+// }
+
+// Letter Swap 
+
+// let swap = str => {
+//   if (str.length === 1) return str;
+//   let swappedStr = "";
+//   let words = str.split(" ");
+//   let reversedWords = words.map(word => {
+//     if (word.length === 1) return word;
+//     return word[word.length - 1] + word.slice(1, word.length - 1) + word[0];
+//   });
+//   return reversedWords.join(" ")
+// }
+
