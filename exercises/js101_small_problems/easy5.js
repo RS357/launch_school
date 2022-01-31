@@ -86,6 +86,96 @@
 
 // Multiply Lists
 
+// let multiplyList = (arr1, arr2) => {
+//   let products = [];
+//   for (let idx = 0; idx < arr1.length; idx += 1) {
+//     products.push(arr1[idx] * arr2[idx]);
+//   }
+//   return products;
+// }
 
+// List of Digits
+// let digitList = num => {
+//   return String(num).split("").map(char => Number(char));
+// }
 
-console.log(multiplyList([3, 5, 7], [9, 10, 11]));    // [27, 50, 77])
+// How many?
+
+// let vehicles = ['car', 'car', "CAR", 'truck', 'car', 'SUV', 'truck',
+//                 'motorcycle', 'motorcycle', 'car', 'truck'];
+
+// let countOccurrences = arr => {
+//   let occurences = {};
+//   arr.forEach(val => {
+//     let valLowerCase = val.toLowerCase()
+//     if (occurences[valLowerCase]) {
+//       occurences[valLowerCase] += 1;
+//     } else {
+//       occurences[valLowerCase] = 1;
+//     }
+//   });
+//   for (let item in occurences) {
+//     console.log(`${item} => ${occurences[item]}`)
+//   }
+// }
+
+// countOccurrences(vehicles);
+
+// Array Average
+
+// let average = arr => { 
+//   return Math.floor(arr.reduce((prev, current) => {
+//     return prev + current;
+//   }, 0) / arr.length);
+// }
+
+// After Midnight (Part 1)
+
+// let MINUTES_IN_HOUR = 60;
+// let MINUTES_IN_DAY = 24 * MINUTES_IN_HOUR;
+
+// let roundToDay = (minutes, minutes_in_day) => {
+//   if (minutes < 0) {
+//     return (minutes % minutes_in_day) + minutes_in_day;
+//   } else {
+//     return minutes % minutes_in_day;
+//   }
+// }
+
+// let timeOfDay = minutes => {
+//   if (minutes === 0) return "00:00";
+//   if (minutes > 0 && minutes < 60) return `00:${minutes}`;
+//   if (minutes > -60 && minutes < 0) return `23:${60 + minutes}`;
+
+//   if (minutes < MINUTES_IN_DAY || minutes > MINUTES_IN_DAY) {
+//     minutes = roundToDay(minutes, MINUTES_IN_DAY);
+//   }
+
+//   let hh = Math.floor(minutes / MINUTES_IN_HOUR);
+//   let mm = minutes % MINUTES_IN_HOUR;
+
+//   hh = String(hh).padStart(2, "0");
+//   mm = String(mm).padStart(2, "0");
+
+//   return `${hh}:${mm}`;
+// }
+
+// After Midnight (Part 2)
+const MINUTES_IN_HOUR = 60;
+const MINUTES_IN_DAY = 24 * MINUTES_IN_HOUR;
+
+let afterMidnight = str => {
+  let splitTime = str.split(":").map(num => Number(num));
+  splitTime[0] *= 60;
+  return (splitTime[0] + splitTime[1]) % MINUTES_IN_DAY;
+}
+
+let beforeMidnight = str => {
+  let mins = afterMidnight(str);
+  if (mins === 0) {
+    return 0;
+  } else {
+    return MINUTES_IN_DAY - mins;
+  }
+}
+
