@@ -47,13 +47,13 @@
 // obj2.a.a[2] = 4
 
 //5
-let munsters = {
-  Herman: { age: 32, gender: 'male' },
-  Lily: { age: 30, gender: 'female' },
-  Grandpa: { age: 402, gender: 'male' },
-  Eddie: { age: 10, gender: 'male' },
-  Marilyn: { age: 23, gender: 'female'}
-};
+// let munsters = {
+//   Herman: { age: 32, gender: 'male' },
+//   Lily: { age: 30, gender: 'female' },
+//   Grandpa: { age: 402, gender: 'male' },
+//   Eddie: { age: 10, gender: 'male' },
+//   Marilyn: { age: 23, gender: 'female'}
+// };
 
 // let total = 0;
 
@@ -158,3 +158,47 @@ let munsters = {
 // });
 
 // 15
+// let arr = [
+//   { a: [1, 2, 3] },
+//   { b: [2, 4, 6], c: [3, 6], d: [4] },
+//   { e: [8], f: [6, 10] },
+// ];
+
+// let arr2 = arr.filter(obj => {
+//   return Object.values(obj).every(subArr => {
+//     return subArr.every(num => num % 2 === 0);
+//   });
+// })
+// console.log(arr2);
+
+// 16
+// let arr = [['a', 1], ['b', 'two'], ['sea', {'c': 3}], ['D', ['a', 'b', 'c']]];
+// let obj = {};
+// arr.forEach(subArr => (obj[subArr[0]] = subArr[1]));
+// console.log(Object.fromEntries(arr));
+
+// 17
+let hexCharGenerator = () => {
+  return Math.floor((Math.random() * 15)).toString(16);
+}
+let generateUUID = () => {
+  let arr = [];
+  arr.length = 36;
+  arr[8] = '-';
+  arr[13] = '-';
+  arr[18] = '-';
+  arr[23] = '-';
+  for (let idx = 0; idx < arr.length; idx += 1) {
+    if (arr[idx] === '-') continue;
+    arr[idx] = hexCharGenerator();
+  }
+  return arr.join('');
+}
+
+console.log(generateUUID());
+console.log(generateUUID());
+console.log(generateUUID());
+console.log(generateUUID());
+console.log(generateUUID());
+
+
