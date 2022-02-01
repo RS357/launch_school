@@ -178,27 +178,19 @@
 // console.log(Object.fromEntries(arr));
 
 // 17
-let hexCharGenerator = () => {
-  return Math.floor((Math.random() * 15)).toString(16);
-}
-let generateUUID = () => {
-  let arr = [];
-  arr.length = 36;
-  arr[8] = '-';
-  arr[13] = '-';
-  arr[18] = '-';
-  arr[23] = '-';
-  for (let idx = 0; idx < arr.length; idx += 1) {
-    if (arr[idx] === '-') continue;
-    arr[idx] = hexCharGenerator();
-  }
-  return arr.join('');
-}
-
-console.log(generateUUID());
-console.log(generateUUID());
-console.log(generateUUID());
-console.log(generateUUID());
-console.log(generateUUID());
-
-
+// let hexCharGenerator = () => {
+//   return Math.floor((Math.random() * 15)).toString(16);
+// }
+// let generateUUID = () => {
+//   let arr = [];
+//   arr.length = 36;
+//   arr[8] = '-';
+//   arr[13] = '-';
+//   arr[18] = '-';
+//   arr[23] = '-';
+//   for (let idx = 0; idx < arr.length; idx += 1) {
+//     if (arr[idx] === '-') continue;
+//     arr[idx] = hexCharGenerator();
+//   }
+//   return arr.join('');
+// }
