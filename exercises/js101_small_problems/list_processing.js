@@ -33,10 +33,19 @@ let leadingSubstrings = str => {
     if (index === 0) return char;
     return splitStr.slice(0, index + 1).join("");
   })
-  // let arr = [];
-  // for (let idx = 1; idx <= str.length; idx += 1) {
-  //   arr.push(str.slice(0, idx));
-  // };
-  // return arr.sort((a, b) => a.length - b.length);
   return sortedStrings;
 }
+
+let substrings = str => {
+  let allSubstrings = [];
+  // for (let i = 0; i < str.length; i++) {
+  //   let substring = leadingSubstrings(str.substring(i));
+  //   allSubstrings = allSubstrings.concat(substring);
+  // }
+  let splitStr = str.split('');
+  return splitStr.map((_, index) => {
+    return leadingSubstrings(str.substring(index));
+  }).flat();
+}
+console.log(substrings('abcde'));
+
