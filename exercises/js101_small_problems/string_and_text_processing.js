@@ -6,13 +6,13 @@
 
 // Delete Vowels 
 
-let removeVowels = strings => {
-  return strings.map(string => {
-    return string.split('').filter(char => {
-      if (!'aeiouAEIOU'.includes(char)) return char; 
-    }).join('');
-  })
-}
+// let removeVowels = strings => {
+//   return strings.map(string => {
+//     return string.split('').filter(char => {
+//       if (!'aeiouAEIOU'.includes(char)) return char; 
+//     }).join('');
+//   })
+// }
 
 // Letter Case Counter 
 
@@ -58,21 +58,19 @@ let removeVowels = strings => {
 let isLetter = char => (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
 
 let staggeredCase = str => {
-  let idxCount = 0;
+  let needUpper = true;
   return str.split('').map(char => {
-    if (idxCount % 2 === 0) {
-      if (isLetter(char)) idxCount += 1;
-      return char.toUpperCase();
-    } 
-    if (idxCount % 2 === 1) {
-      if (isLetter(char)) idxCount += 1;
-      return char.toLowerCase();
+    if (isLetter(char)) {
+      if (needUpper) {
+        needUpper = false;
+        return char.toUpperCase(); 
+      } else {
+        needUpper = true;
+        return char.toLowerCase();
+      }
+    } else {
+      return char;
     }
   }).join('');
 }
 
-console.log(staggeredCase("I Love Launch School!") === "I lOvE lAuNcH sChOoL!");
-console.log(staggeredCase("ALL CAPS") === "AlL cApS");
-console.log(
-  staggeredCase("ignore 77 the 444 numbers") === "IgNoRe 77 ThE 444 nUmBeRs"
-);
