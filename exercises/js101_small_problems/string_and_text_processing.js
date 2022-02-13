@@ -55,22 +55,54 @@
 
 // Staggered Caps  1 and 2
 
-let isLetter = char => (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
+// let isLetter = char => (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
 
-let staggeredCase = str => {
-  let needUpper = true;
-  return str.split('').map(char => {
-    if (isLetter(char)) {
-      if (needUpper) {
-        needUpper = false;
-        return char.toUpperCase(); 
-      } else {
-        needUpper = true;
-        return char.toLowerCase();
-      }
-    } else {
-      return char;
-    }
-  }).join('');
+// let staggeredCase = str => {
+//   let needUpper = true;
+//   return str.split('').map(char => {
+//     if (isLetter(char)) {
+//       if (needUpper) {
+//         needUpper = false;
+//         return char.toUpperCase(); 
+//       } else {
+//         needUpper = true;
+//         return char.toLowerCase();
+//       }
+//     } else {
+//       return char;
+//     }
+//   }).join('');
+// }
+
+
+// How long are you?
+
+// let wordLengths = (...args) => {
+//   if (args.length === 0 || args.length === 0) return [];
+//   return args[0].split(" ").map(word => `${word} ${word.length}`); 
+// } 
+
+// Search Word (Part 1)
+
+// let searchWord = (word, text) => {
+//   let words = text.split(" ");
+//   return words.filter(subWord => {
+//     return subWord.toLowerCase() === word.toLowerCase();
+//   }).length;
+// }
+
+let searchWord = (...args) => {
+  if (args.length < 2) return 'Please enter both word and text';
+  let word = args[0];
+  let text = args[1];
+  let regexp = new RegExp(word, "gi");
+  return text.match(regexp) ? text.match(regexp).length : 0; 
 }
+
+const text = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?';
+
+console.log(searchWord('qui', text));      // 3
+
+// Search Word Part 2
+
 
