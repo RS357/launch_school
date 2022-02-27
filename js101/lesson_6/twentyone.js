@@ -35,8 +35,8 @@ function initialiseDeck() {
   SUITS.forEach(suit => {
     VALUES.forEach(value => {
       deck.push([suit, value]);
-    })
-  })
+    });
+  });
   return deck;
 }
 
@@ -47,126 +47,192 @@ function shuffle(array) {
   }
 }
 
-function displayResult() {
-  return null;
+function displayResult(result, playerCards, dealerCards, totals) {
+  if (result !== 'tie') {
+    prompt(`${result} wins!`)
+    scorePrompt(dealerCards, playerCards, totals);
+  } else {
+    prompt("It's a tie!")
+    scorePrompt(dealerCards, playerCards, totals);
+  }
 }
 
-function dealInitialCards(deck) {
-  let cards = [];
-  dealACard(deck, cards)
-  dealACard(deck, cards)
-  return cards
+function dealInitialCards(deck, cards) {
+  dealACard(deck, cards);
+  dealACard(deck, cards);
 }
 
 function dealACard(deck, cards) {
-  return cards.push(deck.pop());
+  cards.push(deck.pop());
 }
 
-function dealerTurn(dealerCards, deck) {
-  let cardTotal = total(dealerCards);
-
-  while (cardTotal <= 17) {
-    if (busted(dealerCards)) break;
-    dealACard(deck, dealerCards)
-    cardTotal = total(dealerCards);
-  }
+function busted(total) {
+  return total > 21;
 }
 
-function playerTurn(playerCards, deck) {
-  while (true) {
-    displayPlayerHand(playerCards);
-    prompt('hit or stay?');
-    let playerChoice = readline.question();
-    playerChoice = playerChoice.toLowerCase();
-    if (playerChoice === 'hit') {
-      prompt('you hit');
-      dealACard(deck, playerCards);
-      if (busted(playerCards)) break;
-    } else if (playerChoice === 'stay') break;
-  }
-}
-
-function busted(cards) {
-  return total(cards) > 21;
-}
-
-function displayPlayerHand(playerCards) {
-  let displayCards = playerCards.map(card => {
+function displayHand(cards, OPERATOR) {
+  let displayCards = cards.map(card => {
     return `${card[0]} ${card[1]}`;
   }).join(", ");
 
-  prompt(`Your cards are: ${displayCards}`);
-} 
-
-function winPrompt(WINNER) {
-  prompt(`${WINNER} wins!!`);
+  if (OPERATOR === PLAYER) {
+    prompt(`Your cards are: ${displayCards}`);
+  } else {
+    prompt(`${OPERATOR} cards are ${displayCards}`);
+  }
 }
 
-function calculateResult(playerCards, dealerCards) {
-  let totalPlayerScore = total(playerCards);
-  let totalDealerScore = total(dealerCards);
+function getHand(cards) {
+  return cards.map(card => {
+    return `${card[0]} ${card[1]}`;
+  }).join(", ");
+}
 
-  if (totalPlayerScore > totalDealerScore) return PLAYER;
-  if (totalDealerScore > totalPlayerScore) return DEALER;
+function calculateResult(totals) {
+  if (totals[PLAYER] > totals[DEALER]) return PLAYER;
+  if (totals[DEALER] > totals[PLAYER]) return DEALER;
   return 'tie';
 }
 
-function tiePrompt() {
-  prompt("It's a tie!");
+function scorePrompt(dealerCards, playerCards, totals) {
+  console.log('================');
+  prompt(`Player has ${getHand(playerCards)}, for a total of ${totals[PLAYER]}`);
+  prompt(`Dealer has ${getHand(dealerCards)}, for a total of ${totals[DEALER]}`);
+  console.log('================');
 }
 
 function playAgainPrompt() {
   while (true) {
     prompt('Would you like to play again? (y / n)');
-    let playAgain = readline.question().toLowerCase(); 
+    let playAgain = readline.question().toLowerCase();
     if (playAgain === 'n' || playAgain === 'y') {
-      return playAgain; 
+      return playAgain;
     } else {
       prompt("Please enter 'y' or 'n'");
     }
   }
+}
 
+function updateTotal(OPERATOR, totals, cards) {
+
+  let cardValue = cards[cards.length - 1][1];
+
+  if (cardValue === "Ace") {
+    totals[OPERATOR] += 11;
+  } else if (['Jack', 'Queen', 'King'].includes(cardValue)) {
+    totals[OPERATOR] += 10;
+  } else {
+    totals[OPERATOR] += Number(cardValue);
+  }
+
+  // correct for Ace
+  if (cardValue === "Ace" && totals[OPERATOR] > 21) {
+    totals[OPERATOR] -= 10;
+  }
+}
+
+function playerTurn(playerCards, totals, deck) {
+  while (true) {
+    displayHand(playerCards, PLAYER);
+    prompt('hit or stay?');
+    let playerChoice = readline.question();
+    playerChoice = playerChoice.toLowerCase();
+    if (playerChoice !== 'hit' && playerChoice !== 'stay') {
+      prompt('Please enter "hit" or "stay"');
+      continue;
+    }
+    if (playerChoice === 'hit') {
+      prompt('you hit');
+      dealACard(deck, playerCards);
+      updateTotal(PLAYER, totals, playerCards);
+    }
+    if (busted(totals[PLAYER]) || playerChoice === 'stay') {
+      break;
+    }
+  }
+}
+
+function dealerTurn(dealerCards, totals, deck) {
+  while (totals[DEALER] <= 17) {
+    dealACard(deck, dealerCards);
+    updateTotal(DEALER, totals, dealerCards);
+    if (busted(totals[DEALER])) break;
+  }
 }
 
 while (true) {
+  let wins = {
+    [PLAYER]: 0,
+    [DEALER]: 0
+  };
 
   while (true) {
-    let deck = initialiseDeck();
 
-    shuffle(deck);
-  
-    let playerCards = dealInitialCards(deck);
-  
-    let dealerCards = dealInitialCards(deck);
 
-    prompt(`Dealer has: ${dealerCards[0][1]} and unknown card`);
+    while (true) {
+      let totals = {
+        [PLAYER]: 0,
+        [DEALER]: 0
+      };
+      console.log(`wins at beginning: ${JSON.stringify(wins)}`);
 
-    playerTurn(playerCards, deck);
-  
-    if (busted(playerCards)) {
-      winPrompt(DEALER);
+      let deck = initialiseDeck();
+
+      shuffle(deck);
+
+      let playerCards = [];
+      let dealerCards = [];
+
+      // Deal initial two player cards
+      dealInitialCards(deck, playerCards);
+
+      // Deal initial two dealer cards
+      dealInitialCards(deck, dealerCards);
+
+      totals[PLAYER] = total(playerCards);
+      totals[DEALER] = total(dealerCards);
+
+      prompt(`Dealer has: ${dealerCards[0][1]} and unknown card`);
+
+      // Player turn
+      playerTurn(playerCards, totals, deck);
+
+      if (busted(totals[PLAYER])) {
+        prompt('You busted - dealer wins!');
+        scorePrompt(dealerCards, playerCards, totals)
+        wins[PLAYER] += 1;
+        break;
+      }
+
+      // Dealer turn
+      dealerTurn(dealerCards, totals, deck);
+
+      if (busted(totals[DEALER])) {
+        prompt('Dealer busted - you win!');
+        scorePrompt(dealerCards, playerCards, totals)
+        wins[DEALER] += 1;
+        break;
+      }
+
+      let result = calculateResult(totals);
+      if (result !== 'tie') {
+        wins[result] += 1;
+      }
+
+      displayResult(result, playerCards, dealerCards, totals);
+
       break;
     }
 
-    dealerTurn(dealerCards, deck);
-
-    if (busted(dealerCards)) {
-      winPrompt(PLAYER);
+    if (wins[PLAYER] === 5) {
+      prompt(`You've won 5 games. You win the match!`);
+      break;
+    } else if (wins[DEALER] === 5) {
+      prompt(`Dealer wins 5 games. You loose the match!`);
       break;
     }
-  
-    let result = calculateResult(playerCards, dealerCards);
-  
-    if (result === PLAYER) {
-      winPrompt(PLAYER);
-    } else if (result === DEALER) {
-      winPrompt(DEALER);
-    } else {
-      tiePrompt();
-    }
-    break;
+    if (playAgainPrompt() === 'n') break;
   }
-
-  if (playAgainPrompt() === 'n') break;
-
 }
+
+
