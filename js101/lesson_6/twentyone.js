@@ -1,6 +1,7 @@
 let readline = require('readline-sync');
 const PLAYER = 'player';
 const DEALER = 'dealer';
+const BUST_SCORE = 21;
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -22,7 +23,7 @@ function total(cards) {
 
   // correct for Aces
   values.filter(value => value === "Ace").forEach(_ => {
-    if (sum > 21) sum -= 10;
+    if (sum > BUST_SCORE) sum -= 10;
   });
 
   return sum;
@@ -49,10 +50,10 @@ function shuffle(array) {
 
 function displayResult(result, playerCards, dealerCards, totals) {
   if (result !== 'tie') {
-    prompt(`${result} wins!`)
+    prompt(`${result} wins!`);
     scorePrompt(dealerCards, playerCards, totals);
   } else {
-    prompt("It's a tie!")
+    prompt("It's a tie!");
     scorePrompt(dealerCards, playerCards, totals);
   }
 }
@@ -67,7 +68,7 @@ function dealACard(deck, cards) {
 }
 
 function busted(total) {
-  return total > 21;
+  return total > BUST_SCORE;
 }
 
 function displayHand(cards, OPERATOR) {
@@ -126,7 +127,7 @@ function updateTotal(OPERATOR, totals, cards) {
   }
 
   // correct for Ace
-  if (cardValue === "Ace" && totals[OPERATOR] > 21) {
+  if (cardValue === "Ace" && totals[OPERATOR] > BUST_SCORE) {
     totals[OPERATOR] -= 10;
   }
 }
@@ -199,7 +200,7 @@ while (true) {
 
       if (busted(totals[PLAYER])) {
         prompt('You busted - dealer wins!');
-        scorePrompt(dealerCards, playerCards, totals)
+        scorePrompt(dealerCards, playerCards, totals);
         wins[PLAYER] += 1;
         break;
       }
@@ -209,7 +210,7 @@ while (true) {
 
       if (busted(totals[DEALER])) {
         prompt('Dealer busted - you win!');
-        scorePrompt(dealerCards, playerCards, totals)
+        scorePrompt(dealerCards, playerCards, totals);
         wins[DEALER] += 1;
         break;
       }
