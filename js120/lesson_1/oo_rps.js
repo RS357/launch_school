@@ -167,22 +167,6 @@ const RPSGame = {
     }
   },
 
-  playAgain() {
-    while (true) {
-      console.log('Would you like to play again? (y/n)');
-      let answer = readline.question();
-      if (answer.toLowerCase() === 'n' ||
-          answer.toLowerCase() === 'y' ||
-          answer.toLowerCase() === 'yes' ||
-          answer.toLowerCase() === 'no' ) {
-        return answer.toLowerCase()[0].toLowerCase() === 'yes' ||
-        answer.toLowerCase()[0].toLowerCase() === 'y';
-      } else {
-        console.log("Invalid answer. Please enter y/n");
-      }
-    }
-  },
-
   incrementMatchCount() {
     this.matchCount += 1;
   },
@@ -198,18 +182,32 @@ const RPSGame = {
     });
   },
 
-  promptViewMoveHistory() {
+  getAnswer(question, invalidPrompt, validAnswers = ['n', 'y', 'yes', 'no'], ) {
     while (true) {
-      console.log("Do you want to see this game's move history? (y/n)");
-      let answer = readline.question().toLowerCase();
-      if (answer === 'y' || answer === 'yes') {
-        this.showMoveHistory();
-        break;
-      } else if (answer === 'n' || answer === 'no') {
-        break;
+      console.log(question);
+      let answer = readline.question();
+      if (validAnswers.includes(answer)) {
+        return answer;
       } else {
-        console.log('Please enter y/n');
+        console.log(invalidPrompt);
       }
+    }
+  },
+
+  playAgain() {
+    let question = 'Would you like to play again? (y/n)';
+    let invalidPrompt = "Invalid answer. Please enter y/n";
+    let answer = this.getAnswer(question, invalidPrompt).toLowerCase();
+    return answer === 'yes' || answer[0] === 'y';
+  },
+
+  promptViewMoveHistory() {
+    let question = "Do you want to see this game's move history? (y/n)";
+    let invalidPrompt = 'Please enter y/n';
+    let answer = this.getAnswer(question, invalidPrompt).toLowerCase();
+
+    if (answer === 'y' || answer === 'yes') {
+      this.showMoveHistory();
     }
   },
 
@@ -230,6 +228,7 @@ const RPSGame = {
       while (this.computer.score < this.maxScore &&
         this.human.score < this.maxScore) {
         this.playRound();
+        console.clear();
       }
       this.displayWinner();
       if (!this.playAgain()) {
