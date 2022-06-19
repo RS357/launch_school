@@ -32,28 +32,43 @@ are observable in the inheriting object as well.
 
 // recursive
 
-let assignProperty = (obj, prop, val) => {
-  if (obj === null) {
-    return undefined;
-  }
-  else if (obj.hasOwnProperty(prop)) {
-    obj[prop] = val;
-  } else {
-    obj = Object.getPrototypeOf(obj);
-    assignProperty(obj, prop, val);
-  }
+// let assignProperty = (obj, prop, val) => {
+//   if (obj === null) {
+//     return undefined;
+//   }
+//   else if (obj.hasOwnProperty(prop)) {
+//     obj[prop] = val;
+//   } else {
+//     obj = Object.getPrototypeOf(obj);
+//     assignProperty(obj, prop, val);
+//   }
+// };
+
+/*
+5) 
+These loops will not always log the same results to the console. This is because for/in iterates over an object's properties 
+as well as the properties of every object in that object's prototype chain. 
+
+Example:
+
+let obj1 = {
+  a: 1
 };
 
-let fooA = { bar: 1 };
-let fooB = Object.create(fooA);
-let fooC = Object.create(fooB);
+let obj2 = Object.create(obj1);
+obj2.key = 2;
 
-assignProperty(fooC, "bar", 2);
-console.log(fooA.bar); // 2
-console.log(fooC.bar); // 2
+console.log(Object.keys(obj2)); // ['key']
+for (let key in obj2) console.log(key); // 'key' 'a'
 
-assignProperty(fooC, "qux", 3);
-console.log(fooA.qux); // undefined
-console.log(fooC.qux); // undefined
-console.log(fooA.hasOwnProperty("qux")); // false
-console.log(fooC.hasOwnProperty("qux")); // false
+6)
+
+You create an object that doesn't have a prototype by passing null to the Object.create() method when calling it. 
+If an object obj doesn't have a prototype Object.getPrototypeOf(obj) will return null.
+*/
+
+// console.log(go());
+
+// let go = () => {
+//   return 1;
+// }
