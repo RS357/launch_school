@@ -95,57 +95,57 @@
 
 let readline = require('readline-sync');
 
-class Player() {
-  return {
-    move: null,
+class Player {
+  constructor() {
+    this.move = null;
+  }
+}
+
+class Computer extends Player {
+  constructor() {
+    super();
+  }
+
+  choose() {
+    const choices = ['rock', 'paper', 'scissors'];
+    let randomIndex = Math.floor(Math.random() * choices.length);
+    this.move = choices[randomIndex];
   };
 }
 
-class Computer() {
-  let playerObject = Player();
 
-  let computerObject = {
-    choose() {
-      const choices = ['rock', 'paper', 'scissors'];
-      let randomIndex = Math.floor(Math.random() * choices.length);
-      this.move = choices[randomIndex];
-    },
-  };
+class Human extends Player{
+  constructor() {
+    super();
+  }
 
-  return Object.assign(playerObject, computerObject);
+  choose() {
+    let choice;
+    while (true) {
+      console.log('Please choose rock, paper, or scissors:');
+      choice = readline.question();
+      if (['rock', 'paper', 'scissors'].includes(choice)) break;
+      console.log('Sorry, invalid choice.');
+    }
+
+    this.move = choice;
+  }
 }
 
-class Human() {
-  let playerObject = Player();
-  let humanObject = {
-    choose() {
-      let choice;
-
-      while (true) {
-        console.log('Please choose rock, paper, or scissors:');
-        choice = readline.question();
-        if (['rock', 'paper', 'scissors'].includes(choice)) break;
-        console.log('Sorry, invalid choice.');
-      }
-
-      this.move = choice;
-    },
-  };
-
-  return Object.assign(playerObject, humanObject);
-}
-
-class RPSGame = {
-  human: Human(),
-  computer: Computer(),
+class RPSGame {
+  constructor() {
+    this.human = new Human();
+    this.computer = new Computer();
+  }
+  
 
   displayWelcomeMessage() {
     console.log('Welcome to Rock, Paper, Scissors!');
-  },
+  };
 
   displayGoodbyeMessage() {
     console.log('Thanks for playing Rock, Paper, Scissors. Goodbye!');
-  },
+  };
 
   displayWinner() {
     console.log(`You chose: ${this.human.move}`);
@@ -165,13 +165,13 @@ class RPSGame = {
     } else {
       console.log("It's a tie");
     }
-  },
+  };
 
   playAgain() {
     console.log('Would you like to play again? (y/n)');
     let answer = readline.question();
     return answer.toLowerCase()[0] === 'y';
-  },
+  };
 
   play() {
     this.displayWelcomeMessage();
@@ -183,7 +183,9 @@ class RPSGame = {
     }
 
     this.displayGoodbyeMessage();
-  },
+  };
 };
 
-RPSGame.play();
+let game = new RPSGame()
+
+game.play();
