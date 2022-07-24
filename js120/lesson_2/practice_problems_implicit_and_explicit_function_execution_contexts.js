@@ -1,15 +1,19 @@
 /*
-1) global object 
+1) global object
 
-2) The code will output the obj object. This is because the object was used to call the method func - giving the 
-invocation the implicit execution context of object obj. The call in problem one used parenthesis only and is not 
-a method call - hence its execution context is the global object.
+2) Whilst the function in problem 1 is called as a function and so 
+implicitly given a global execution context, the anonymous function/method
+assigned to func in the obj object in problem 2 is called as a method, and so 
+its execution context is implicitly set as obj. 
+It will output obj.
 
-3) 'Hello from the global scope!' followed by 'Hello from the function scope!'
+3)
+"Hello from the global scope!"
+"Hello from the function scope!"
 
-4) Function.prototype.call() and Function.prototype.apply() 
+4) apply() and call() <- both methods of the function object prototype
 
-5)
+5) it will return 3
 */
 
 let foo = {
@@ -25,4 +29,4 @@ let bar = {
    },
 };
 
-console.log(bar.add.call(foo)); // will return 3
+console.log(bar.add.call(foo));
