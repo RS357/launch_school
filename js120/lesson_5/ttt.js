@@ -54,6 +54,10 @@ class Board {
     let keys = Object.keys(this.squares);
     return keys.filter(key => this.squares[key].isUnused());
   }
+
+  isFull() {
+    return this.unusedSquares().length === 0;
+  }  
 };
 
 class Row {
@@ -98,6 +102,17 @@ class TTTGame {
     this.human = new Human();
     this.computer = new Computer();
   }
+
+  static POSSIBLE_WINNING_ROWS = [
+    [ "1", "2", "3" ],            // top row of board
+    [ "4", "5", "6" ],            // center row of board
+    [ "7", "8", "9" ],            // bottom row of board
+    [ "1", "4", "7" ],            // left column of board
+    [ "2", "5", "8" ],            // middle column of board
+    [ "3", "6", "9" ],            // right column of board
+    [ "1", "5", "9" ],            // diagonal: top-left to bottom-right
+    [ "3", "5", "7" ],            // diagonal: bottom-left to top-right
+  ];
 
   displayWelcomeMessage() {
     console.log('Welcome to Tic Tac Toe!');
@@ -158,13 +173,9 @@ class TTTGame {
   }
 
   gameOver() {
-    return this.boardIsFull() || this.someoneWon();
+    return this.board,isFull() || this.someoneWon();
   }
 
-  boardIsFull() {
-    let unusedSquares = this.board.unusedSquares();
-    return unusedSquares.length === 0;
-  }
 }
 
 let game = new TTTGame();
