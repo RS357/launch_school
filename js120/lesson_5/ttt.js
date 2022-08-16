@@ -20,6 +20,10 @@ class Square {
   isUnused() {
     return this.marker === Square.UNUSED_SQUARE;
   }
+
+  getMarker() {
+    return this.marker;
+  }
 }
 
 class Board {
@@ -57,7 +61,22 @@ class Board {
 
   isFull() {
     return this.unusedSquares().length === 0;
-  }  
+  }
+
+  countMarkersFor(player, keys) {
+    let markers = keys.filter(key => {
+      return this.squares[key].getMarker() === player.getMarker();
+    });
+
+    return markers.length;
+  }
+
+  displayWithClear() {
+    console.clear();
+    console.log("");
+    console.log("");
+    this.display();
+  }
 };
 
 class Row {
@@ -115,7 +134,9 @@ class TTTGame {
   ];
 
   displayWelcomeMessage() {
+    console.clear();
     console.log('Welcome to Tic Tac Toe!');
+    console.log("");
   }
 
   displayGoodbyeMessage () {
@@ -124,24 +145,37 @@ class TTTGame {
 
   play() {
     this.displayWelcomeMessage();
+    this.board.display();
 
     while (true) {
-      this.board.display();
-
       this.humanMoves();
       if (this.gameOver()) break;
 
       this.computerMoves();
       if (this.gameOver()) break;
+
+      this.board.displayWithClear();
     }
 
+    this.board.displayWithClear()
     this.displayResults();
     this.displayGoodbyeMessage();
   }
 
   displayResults() {
-    // STUB
-    // show the results of this game (win, lose, tie)
+    if (this.isWinner(this.human)) {
+      console.log("You won! Congratulations!");
+    } else if (this.isWinner(this.computer)) {
+      console.log("I won! I won! Take that, human!");
+    } else {
+      console.log("A tie game. How boring.");
+    }
+  }
+
+  isWinner(player) {
+    return TTTGame.POSSIBLE_WINNING_ROWS.some(row => {
+      return this.board.countMarkersFor(player, row) === 3;
+    });
   }
 
 
@@ -173,7 +207,14 @@ class TTTGame {
   }
 
   gameOver() {
-    return this.board,isFull() || this.someoneWon();
+    return this.board.isFull() || this.someoneWon();
+  }
+
+  someoneWon() {
+    return TTTGame.POSSIBLE_WINNING_ROWS.some(row => {
+      return this.board.countMarkersFor(this.human, row) === 3 || 
+             this.board.countMarkersFor(this.computer, row) === 3;
+    });
   }
 
 }
