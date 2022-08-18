@@ -1,121 +1,105 @@
 let readline = require('readline-sync');
 
-class Square {
-  static UNUSED_SQUARE = " ";
-  static HUMAN_MARKER = "X";
-  static COMPUTER_MARKER = "O";
-
-  constructor(marker = Square.UNUSED_SQUARE) {
-    this.marker = marker;
-  }
-
-  toString() {
-    return this.marker;
-  }
-
-  setMarker(marker) {
-    this.marker = marker;
-  }
-
-  isUnused() {
-    return this.marker === Square.UNUSED_SQUARE;
-  }
-
-  getMarker() {
-    return this.marker;
-  }
+function Square(marker) {
+  this.marker = marker || Square.UNUSED_SQUARE;
 }
 
-class Board {
-  constructor() {
-    this.squares = {};
-    for (let counter = 1; counter <= 9; ++counter) {
-      this.squares[String(counter)] = new Square();
-    }
-  }
+Square.UNUSED_SQUARE = " ";
+Square.HUMAN_MARKER = "X";
+Square.COMPUTER_MARKER = "O";
 
-  markSquareAt(key, marker) {
-    this.squares[key].setMarker(marker);
-  }
-
-  display() {
-    console.log("");
-    console.log("     |     |");
-    console.log(`  ${this.squares["1"]}  |  ${this.squares["2"]}  |  ${this.squares["3"]}`);
-    console.log("     |     |");
-    console.log("-----+-----+-----");
-    console.log("     |     |");
-    console.log(`  ${this.squares["4"]}  |  ${this.squares["5"]}  |  ${this.squares["6"]}`);
-    console.log("     |     |");
-    console.log("-----+-----+-----");
-    console.log("     |     |");
-    console.log(`  ${this.squares["7"]}  |  ${this.squares["8"]}  |  ${this.squares["9"]}`);
-    console.log("     |     |");
-    console.log("");
-  }
-
-  unusedSquares() {
-    let keys = Object.keys(this.squares);
-    return keys.filter(key => this.squares[key].isUnused());
-  }
-
-  isFull() {
-    return this.unusedSquares().length === 0;
-  }
-
-  countMarkersFor(player, keys) {
-    let markers = keys.filter(key => {
-      return this.squares[key].getMarker() === player.getMarker();
-    });
-
-    return markers.length;
-  }
-
-  displayWithClear() {
-    console.clear();
-    console.log("");
-    console.log("");
-    this.display();
-  }
+Square.prototype.toString = function() {
+  return this.marker;
 };
 
-class Row {
-  constructor() {
-    // STUB
-    // We need some way to identify a row of 3 squares 
+Square.prototype.setMarker = function(marker) {
+  this.marker = marker;
+};
+
+Square.prototype.isUnused = function() {
+  return this.marker === Square.UNUSED_SQUARE;
+};
+
+Square.prototype.getMarker = function() {
+  return this.marker;
+};
+
+function Board() {
+  this.squares = {};
+
+  for (let counter = 1; counter <= 9; ++counter) {
+    this.squares[String(counter)] = new Square();
   }
 }
 
-class Marker {
-  constructor() {
-    // STUB
-    // A marker is something that represents a player's 'piece' on the board 
-  }
+
+Board.prototype.markSquareAt = function(key, marker) {
+  this.squares[key].setMarker(marker);
+};
+
+Board.prototype.display = function() {
+  console.log("");
+  console.log("     |     |");
+  console.log(`  ${this.squares["1"]}  |  ${this.squares["2"]}  |  ${this.squares["3"]}`);
+  console.log("     |     |");
+  console.log("-----+-----+-----");
+  console.log("     |     |");
+  console.log(`  ${this.squares["4"]}  |  ${this.squares["5"]}  |  ${this.squares["6"]}`);
+  console.log("     |     |");
+  console.log("-----+-----+-----");
+  console.log("     |     |");
+  console.log(`  ${this.squares["7"]}  |  ${this.squares["8"]}  |  ${this.squares["9"]}`);
+  console.log("     |     |");
+  console.log("");
+};
+
+Board.prototype.unusedSquares = function() {
+  let keys = Object.keys(this.squares);
+  return keys.filter(key => this.squares[key].isUnused());
 }
 
-class Player {
-  constructor(marker) {
-    this.marker = marker;
-  }
-
-  getMarker() {
-    return this.marker;
-  }
+Board.prototype.isFull = function() {
+  return this.unusedSquares().length === 0;
 }
 
-class Human extends Player {
+Board.prototype.countMarkersFor = function(player, keys) {
+  let markers = keys.filter(key => {
+    return this.squares[key].getMarker() === player.getMarker();
+  });
+
+  return markers.length;
+}
+
+Board.prototype.displayWithClear = function() {
+  console.clear();
+  console.log("");
+  console.log("");
+  this.display();
+}
+
+
+function Player(marker) {
+  this.marker = marker;
+}
+
+Player.prototype.getMarker = function() {
+  return this.marker;
+}
+
+
+function Human() {
   constructor() {
     super(Square.HUMAN_MARKER);
   }
 }
 
-class Computer extends Player {
+function Computer extends Player {
   constructor() {
     super(Square.COMPUTER_MARKER);
   }
 }
 
-class TTTGame {
+function TTTGame {
   constructor() {
     this.board = new Board();
     this.human = new Human();
@@ -157,7 +141,7 @@ class TTTGame {
       this.board.displayWithClear();
     }
 
-    this.board.displayWithClear()
+    this.board.displayWithClear();
     this.displayResults();
     this.displayGoodbyeMessage();
   }
@@ -212,7 +196,7 @@ class TTTGame {
 
   someoneWon() {
     return TTTGame.POSSIBLE_WINNING_ROWS.some(row => {
-      return this.board.countMarkersFor(this.human, row) === 3 || 
+      return this.board.countMarkersFor(this.human, row) === 3 ||
              this.board.countMarkersFor(this.computer, row) === 3;
     });
   }
