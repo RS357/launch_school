@@ -47,6 +47,17 @@ class Board {
     console.log("");
   }
 
+  getMiddleKey() {
+    let boardKeys = Object.keys(this.squares);
+    let middleKey = boardKeys[Math.floor(boardKeys.length / 2)]
+    return middleKey;
+  }
+
+  isMiddleSquareEmpty() {
+    let middleKey = this.getMiddleKey()
+    return this.squares[middleKey].isUnused();
+  }
+
   markSquareAt(key, marker) {
     this.squares[key].setMarker(marker);
   }
@@ -160,10 +171,10 @@ class TTTGame {
       this.computerMoves();
       if (this.gameOver()) break;
 
-      this.board.displayWithClear();
+      this.board.display(); // CHANGE BACK TO DISPLAYCLEAR ONCE YOUVE FIXED THE DEFENSIVE AI ALGO
     }
 
-    this.board.displayWithClear();
+    this.board.display(); // CHANGE BACK TO DISPLAYWITHCLEAR AFTER DEBUGGING
     this.displayResults();
     this.playAgain();
   }
@@ -206,14 +217,76 @@ class TTTGame {
   }
 
   computerMoves() {
-    let validChoices = this.board.unusedSquares();
-    let choice;
+    if (this.winningSquare()) {
+      this.computerMove(this.computer);
+    } else if (this.losingSquare()) {
+      this.computerMove(this.human); 
+    } else if (this.board.isMiddleSquareEmpty()) {
+      this.takeMiddleSquare();
+    } else {
+      this.randomMove(); 
+    }
+  }
 
+  takeMiddleSquare() {
+    let middleKey = this.board.getMiddleKey();
+    this.board.markSquareAt(middleKey, this.computer.getMarker());
+  }
+
+  winningSquare() {
+    let winRow = this.findRow(this.computer);
+    if (winRow) {
+      return true;
+    } else return false; 
+  }
+
+  losingSquare() {
+    let dangerRow = this.findRow(this.human);
+    if (dangerRow) {
+      return true;
+    } else return false; 
+  }
+
+  randomMove() {
+    let validChoices = this.board.unusedSquares();
+    let choice; 
     do {
       choice = Math.floor((9 * Math.random()) + 1).toString();
-    } while (!validChoices.includes(choice));
+    } while (!validChoices.includes(choice));   
 
     this.board.markSquareAt(choice, this.computer.getMarker());
+  }
+
+  computerMove(player) {
+    let row = this.findRow(player);
+    let choice = this.getEmptySquare(row);
+    this.board.markSquareAt(choice, this.computer.getMarker());
+  }
+
+  findRow(player) {
+    for (let idx = 0; idx < TTTGame.POSSIBLE_WINNING_ROWS.length; idx += 1) {
+      let row = TTTGame.POSSIBLE_WINNING_ROWS[idx];
+      if (this.twoInRow(player, row)) {
+        return row;
+      };
+    }
+    return false;
+  }
+
+  twoInRow(player, row) {
+    return this.containsTwoPlayerMarkers(player, row) && this.containsEmptySquare(row);
+  }
+
+  containsTwoPlayerMarkers(player, row) {
+    return this.board.countMarkersFor(player, row) === 2; 
+  }
+
+  containsEmptySquare(row) {
+    return row.filter(key => this.board.squares[key].getMarker() === Square.UNUSED_SQUARE).length === 1;
+  }
+
+  getEmptySquare(row) {
+    return row.filter(key => this.board.squares[key].isUnused())[0];
   }
 
   gameOver() {
