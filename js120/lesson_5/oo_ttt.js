@@ -110,7 +110,6 @@ class Player {
   incrementScore() {
     this.score += 1;
   }
-
 }
 
 class Human extends Player {
@@ -206,7 +205,6 @@ class TTTGame {
       this.computer.incrementScore();
     }
   }
-
 
   displayEndOfMatchMessage() {
     if (this.human.getScore() === TTTGame.MAX_WINS) {
@@ -326,6 +324,7 @@ class TTTGame {
   randomMove() {
     let validChoices = this.board.unusedSquares();
     let choice;
+
     do {
       choice = Math.floor((9 * Math.random()) + 1).toString();
     } while (!validChoices.includes(choice));
