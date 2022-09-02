@@ -359,8 +359,9 @@ class TTTGame {
   }
 
   containsEmptySquare(row) {
-    return row.filter(key => this.board.squares[key].getMarker() ===
-    Square.UNUSED_SQUARE).length === 1;
+    return row.filter(key => {
+      return this.board.squares[key].getMarker() === Square.UNUSED_SQUARE;
+    }).length === 1;
   }
 
   getEmptySquare(row) {
