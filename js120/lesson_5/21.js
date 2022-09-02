@@ -30,3 +30,61 @@ class Card {
     // Rank? Suit? Points?
   }
 }
+
+class Deck {
+  constructor() {
+    //STUB
+    // What sort of state does a deck need? 
+    // 52 cards? 
+    // obviously, we need some data structure to keep track of cards 
+    // array, object. something else?
+  }
+
+  deal() {
+    //STUB 
+    // does the dealer or the deck deal?
+  }
+}
+
+class Participant {
+  constructor() {
+    //STUB
+    // What sort of state does a participant need? 
+    // Score? Hand? Amount of money available? 
+    // What else goes here? all the redundant behaviours from Player and Dealer?
+  }
+}
+
+class Player extends Participant {
+  constructor() {
+    //STUB
+    // What sort of state does a player need?
+    // Score? Hand? Amount of money available? 
+  }
+
+  hit() {
+    //STUB
+  }
+
+  stay() {
+    //STUB
+  }
+
+  isBusted() {
+    //STUB
+  }
+
+  score() {
+    //STUB
+  }
+}
+
+class Dealer extends Participant {
+  // Very similar to a Player; do we need this?
+
+  constructor() {
+    //STUB
+    // What sort of state does a dealer need? 
+    // Score? Hand? Deck of cards? Bow tie?
+  }
+}
