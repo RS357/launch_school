@@ -161,7 +161,7 @@ class Dealer extends Participant {
   constructor() {
     super();
     //STUB
-    // What sort of state does a dealer need? 
+    // What sort of state does a dealer need?
     // Score? Hand? Deck of cards? Bow tie?
   }
 
