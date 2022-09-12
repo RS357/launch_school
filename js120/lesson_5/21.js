@@ -208,6 +208,10 @@ class TwentyOneGame {
     prompt(`Player has: ${this.listCardRanks(this.player)}`);
   }
 
+  showPlayerCard() {
+    prompt(`Player has: ${this.listCardRanks(this.player)}`);
+  }
+
   listCardRanks(participant) {
     let cards = participant.getCards();
     if (cards.length === 2) {
@@ -223,7 +227,8 @@ class TwentyOneGame {
       let allCardRanksButLast = allCardsButLast.map(card => {
         return `${card.getRank()} of ${card.getSuit()}`;
       });
-      return `${allCardRanksButLast} and ${cards[0].getRank()}`;
+      return `${allCardRanksButLast.join(', ')} and ${cards[0].getRank()}`
+      + ` of ${cards[0].getSuit()}`;
     }
   }
 
@@ -251,6 +256,7 @@ class TwentyOneGame {
         prompt('you hit');
         this.dealCard(this.player);
         this.player.updateHandTotal();
+        this.showPlayerCard();
       } else if (this.player.isBusted() || playerChoice === 'stay') {
         break;
       }
