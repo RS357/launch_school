@@ -160,9 +160,7 @@ class Dealer extends Participant {
   // Very similar to a Player; do we need this?
   constructor() {
     super();
-    //STUB
-    // What sort of state does a dealer need?
-    // Score? Hand? Deck of cards? Bow tie?
+    this.maxScore = 17;
   }
 
   hide() {
@@ -172,13 +170,12 @@ class Dealer extends Participant {
   reveal() {
     //STUB
   }
-
-  deal() {
-
-  }
-
   dealInitialCards(player, dealer) {
     // STUB
+  }
+
+  getMaxScore() {
+    return this.maxScore;
   }
 }
 
@@ -198,18 +195,27 @@ class TwentyOneGame {
     this.dealInitialCards();
     this.showCards();
     this.playerTurn();
-    // this.dealerTurn();
-    // this.displayResult();
-    // this.displayGoodbyeMessage();
+    if (!this.player.isBusted) {
+      this.dealerTurn();
+    }
+    this.displayResult();
+    this.displayGoodbyeMessage();
   }
 
   showCards() {
-    prompt(`Dealer has: ${this.listCardRanks(this.dealer)}`);
-    prompt(`Player has: ${this.listCardRanks(this.player)}`);
+    this.showHandAndTotalScore(this.player);
+    this.showHandAndTotalScore(this.dealer);
   }
 
-  showPlayerCard() {
-    prompt(`Player has: ${this.listCardRanks(this.player)}`);
+  showHandAndTotalScore(participant) {
+    prompt(`${participant.constructor.name} has:`
+    + ` ${this.listCardRanks(participant)} for a`
+    + ` total of ${participant.getHandTotal()}`);
+  }
+
+  showHand(participant) {
+    prompt(`${participant.constructor.name} has:`
+    + ` ${this.listCardRanks(participant)}`);
   }
 
   listCardRanks(participant) {
@@ -234,10 +240,12 @@ class TwentyOneGame {
 
   dealInitialCards() {
     this.player.receiveCard(this.deck.getDeck().pop());
-    this.player.receiveCard(this.deck.getDeck().pop());
-    this.dealer.receiveCard(this.deck.getDeck().pop());
-    this.dealer.receiveCard(this.deck.getDeck().pop());
     this.player.updateHandTotal();
+    this.player.receiveCard(this.deck.getDeck().pop());
+    this.player.updateHandTotal();
+    this.dealer.receiveCard(this.deck.getDeck().pop());
+    this.dealer.updateHandTotal();
+    this.dealer.receiveCard(this.deck.getDeck().pop());
     this.dealer.updateHandTotal();
   }
 
@@ -248,15 +256,17 @@ class TwentyOneGame {
   playerTurn() {
     while (true) {
       prompt('hit or stay?');
-      let playerChoice = readline.question();
-      playerChoice = playerChoice.toLowerCase();
+      this.showHand(this.dealer);
+      this.showHandAndTotalScore(this.player);
+      let playerChoice = readline.question().toLowerCase();
+
       if (playerChoice !== 'hit' && playerChoice !== 'stay') {
         prompt('Please enter "hit" or "stay"');
       } else if (playerChoice === 'hit') {
         prompt('you hit');
         this.dealCard(this.player);
         this.player.updateHandTotal();
-        this.showPlayerCard();
+        this.showHand(this.player);
       } else if (this.player.isBusted() || playerChoice === 'stay') {
         break;
       }
@@ -264,7 +274,20 @@ class TwentyOneGame {
   }
 
   dealerTurn() {
-    //STUB
+    this.showHandAndTotalScore(this.dealer);
+    while (this.dealer.getHandTotal() <= this.dealer.getMaxScore()) {
+      this.dealCard(this.dealer);
+      this.dealer.updateHandTotal();
+      this.showHandAndTotalScore(this.dealer);
+      if (this.dealer.isBusted()) {
+        prompt('Dealer busted - you win!');
+        break;
+      }
+    }
+    if (this.dealer.getHandTotal() > this.dealer.getMaxScore()) {
+      prompt("Dealer stays");
+      this.showHandAndTotalScore(this.dealer);
+    }
   }
 
   displayWelcomeMessage() {
@@ -272,11 +295,20 @@ class TwentyOneGame {
   }
 
   displayGoodbyeMessage() {
-    //STUB
+    prompt("Thank you for playing. Goodbye!");
   }
 
   displayResult() {
-    //STUB
+    let playerTotal = this.player.getHandTotal();
+    let dealerTotal = this.dealer.getHandTotal();
+    this.showHandAndTotalScore();
+    if (playerTotal > dealerTotal) {
+      prompt();
+    } else if (playerTotal < dealerTotal) {
+      prompt();
+    } else {
+      prompt();
+    }
   }
 
   shuffleDeck() {
