@@ -189,22 +189,15 @@ class TwentyOneGame {
   }
 
   start() {
-    //SPIKE
     this.displayWelcomeMessage();
     this.shuffleDeck();
     this.dealInitialCards();
-    this.showCards();
     this.playerTurn();
     if (!this.player.isBusted) {
       this.dealerTurn();
     }
     this.displayResult();
     this.displayGoodbyeMessage();
-  }
-
-  showCards() {
-    this.showHandAndTotalScore(this.player);
-    this.showHandAndTotalScore(this.dealer);
   }
 
   showHandAndTotalScore(participant) {
@@ -218,10 +211,16 @@ class TwentyOneGame {
     + ` ${this.listCardRanks(participant)}`);
   }
 
-  listCardRanks(participant) {
+  showFinalHandAndScore(participant) {
+    prompt(`${participant.constructor.name} has:`
+    + ` ${this.listCardRanks(participant, 'finalRound')} for a`
+    + ` total of ${participant.getHandTotal()}`);
+  }
+
+  listCardRanks(participant, finalRound = false) {
     let cards = participant.getCards();
     if (cards.length === 2) {
-      if (participant === this.dealer) {
+      if (participant === this.dealer && !finalRound) {
         return `${cards[0].getRank()} of ${cards[0].getSuit()}`
         + ` and an unknown card`;
       } else {
@@ -233,8 +232,9 @@ class TwentyOneGame {
       let allCardRanksButLast = allCardsButLast.map(card => {
         return `${card.getRank()} of ${card.getSuit()}`;
       });
-      return `${allCardRanksButLast.join(', ')} and ${cards[0].getRank()}`
-      + ` of ${cards[0].getSuit()}`;
+      let lastCardIdx = cards.length - 1;
+      return `${allCardRanksButLast.join(', ')} and`
+      + ` ${cards[lastCardIdx].getRank()} of ${cards[lastCardIdx].getSuit()}`;
     }
   }
 
@@ -259,17 +259,17 @@ class TwentyOneGame {
       this.showHand(this.dealer);
       this.showHandAndTotalScore(this.player);
       let playerChoice = readline.question().toLowerCase();
-
-      if (playerChoice !== 'hit' && playerChoice !== 'stay') {
-        prompt('Please enter "hit" or "stay"');
-      } else if (playerChoice === 'hit') {
+      if (playerChoice === 'hit') {
         prompt('you hit');
         this.dealCard(this.player);
         this.player.updateHandTotal();
         this.showHand(this.player);
-      } else if (this.player.isBusted() || playerChoice === 'stay') {
+        if (this.player.isBusted()) break;
+      } else if (playerChoice === 'stay') {
         break;
-      }
+      } else {
+        prompt('Please enter "hit" or "stay"');
+      } 
     }
   }
 
@@ -299,15 +299,21 @@ class TwentyOneGame {
   }
 
   displayResult() {
+    console.clear();
     let playerTotal = this.player.getHandTotal();
     let dealerTotal = this.dealer.getHandTotal();
-    this.showHandAndTotalScore();
-    if (playerTotal > dealerTotal) {
-      prompt();
-    } else if (playerTotal < dealerTotal) {
-      prompt();
+    this.showFinalHandAndScore(this.player);
+    this.showFinalHandAndScore(this.dealer);
+    if (dealerTotal > TwentyOneGame.BUST_SCORE) {
+      prompt('Dealer busted! You win! Congratulations');
+    } else if (playerTotal > TwentyOneGame.BUST_SCORE) {
+      prompt("You busted! Dealer wins! What a shame!");
+    } else if (playerTotal > dealerTotal) {
+      prompt('You win! Congratulations');
+    } else if (dealerTotal > playerTotal) {
+      prompt('Dealer wins! What a shame!');
     } else {
-      prompt();
+      prompt("It's a tie. Boring...");
     }
   }
 
