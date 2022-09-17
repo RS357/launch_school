@@ -103,20 +103,16 @@ class Participant {
     // What else goes here? all the redundant behaviours from Player and Dealer?
   }
 
-  hit() {
-    //STUB
+  clearCards() {
+    this.cards = [];
   }
 
-  stay() {
-    //STUB
+  resetHandTotal() {
+    this.handTotal = 0;
   }
 
   isBusted() {
     return this.handTotal > TwentyOneGame.BUST_SCORE;
-  }
-
-  score() {
-    //STUB
   }
 
   receiveCard(card) {
@@ -131,7 +127,8 @@ class Participant {
     let lastCardIdx = this.cards.length - 1;
     let lastCard = this.cards[lastCardIdx];
     this.handTotal += lastCard.getPoints();
-    if (lastCard === 'Ace' && this.getHandTotal() > TwentyOneGame.BUST_SCORE) {
+    if (lastCard.getRank() === 'Ace' &&
+    this.getHandTotal() > TwentyOneGame.BUST_SCORE) {
       this.handTotal -= 10;
     }
   }
@@ -150,9 +147,14 @@ class Participant {
 class Player extends Participant {
   constructor() {
     super();
+    this.playerDollars = 5;
     //STUB
     // What sort of state does a player need?
     // Score? Hand? Amount of money available?
+  }
+
+  getDollars() {
+    return this.playerDollars;
   }
 }
 
@@ -182,22 +184,38 @@ class Dealer extends Participant {
 class TwentyOneGame {
   static NUMBER_OF_STARTING_CARDS = 2
   static BUST_SCORE = 21;
+
   constructor() {
     this.player = new Player();
     this.dealer = new Dealer();
-    this.deck = new Deck();
+    this.deck = null;
   }
 
   start() {
-    this.displayWelcomeMessage();
-    this.shuffleDeck();
-    this.dealInitialCards();
-    this.playerTurn();
-    if (!this.player.isBusted) {
-      this.dealerTurn();
+    while (this.player.getDollars() < 10) {
+      this.deck = new Deck();
+      console.clear();
+      this.displayWelcomeMessage();
+      this.shuffleDeck();
+      this.dealInitialCards();
+      this.playerTurn();
+      if (!this.player.isBusted()) this.dealerTurn();
+      this.displayResult();
+      if (this.playAgainPrompt() === 'n') {
+        this.displayGoodbyeMessage();
+        break;
+      } else if (this.player.getDollars() === 0) {
+        this.lostOverallGameMessage();
+      }
+      this.resetHandsAndTotals();
     }
-    this.displayResult();
-    this.displayGoodbyeMessage();
+  }
+
+  resetHandsAndTotals() {
+    this.player.clearCards();
+    this.player.resetHandTotal();
+    this.dealer.clearCards();
+    this.dealer.resetHandTotal();
   }
 
   showHandAndTotalScore(participant) {
@@ -263,30 +281,28 @@ class TwentyOneGame {
         prompt('you hit');
         this.dealCard(this.player);
         this.player.updateHandTotal();
-        this.showHand(this.player);
         if (this.player.isBusted()) break;
       } else if (playerChoice === 'stay') {
         break;
       } else {
         prompt('Please enter "hit" or "stay"');
-      } 
+      }
     }
   }
 
   dealerTurn() {
     this.showHandAndTotalScore(this.dealer);
-    while (this.dealer.getHandTotal() <= this.dealer.getMaxScore()) {
+    while (this.dealer.getHandTotal() < this.dealer.getMaxScore()) {
+      prompt("Dealer hits!");
       this.dealCard(this.dealer);
       this.dealer.updateHandTotal();
       this.showHandAndTotalScore(this.dealer);
       if (this.dealer.isBusted()) {
         prompt('Dealer busted - you win!');
         break;
+      } else if (this.dealer.getHandTotal >= this.dealer.getMaxScore()) {
+        prompt("Dealer stays!");
       }
-    }
-    if (this.dealer.getHandTotal() > this.dealer.getMaxScore()) {
-      prompt("Dealer stays");
-      this.showHandAndTotalScore(this.dealer);
     }
   }
 
@@ -299,7 +315,6 @@ class TwentyOneGame {
   }
 
   displayResult() {
-    console.clear();
     let playerTotal = this.player.getHandTotal();
     let dealerTotal = this.dealer.getHandTotal();
     this.showFinalHandAndScore(this.player);
@@ -319,6 +334,18 @@ class TwentyOneGame {
 
   shuffleDeck() {
     shuffle(this.deck.getDeck());
+  }
+
+  playAgainPrompt() {
+    while (true) {
+      prompt('Would you like to play again? (y / n)');
+      let playAgain = readline.question().toLowerCase();
+      if (playAgain === 'n' || playAgain === 'y') {
+        return playAgain;
+      } else {
+        prompt("Please enter 'y' or 'n'");
+      }
+    }
   }
 }
 
