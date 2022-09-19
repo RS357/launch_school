@@ -57,7 +57,7 @@ class Deck {
         deck.push(new Card(suit, rank));
       });
     });
-    return deck;
+    return shuffle(deck);
   }
 
   getDeck() {
@@ -70,13 +70,13 @@ class Deck {
 }
 
 class Participant {
+  static BUST_SCORE = 21;
+  static WIN_DOLLARS = 10;
+  static LOOSE_DOLLARS = 0;
+  static START_DOLLARS = 5;
   constructor() {
     this.cards = [];
     this.handTotal = 0;
-    //STUB
-    // What sort of state does a participant need?
-    // Score? Hand? Amount of money available?
-    // What else goes here? all the redundant behaviours from Player and Dealer?
   }
 
   clearCards() {
@@ -88,7 +88,7 @@ class Participant {
   }
 
   isBusted() {
-    return this.handTotal > TwentyOneGame.BUST_SCORE;
+    return this.handTotal > Participant.BUST_SCORE;
   }
 
   receiveCard(card) {
@@ -104,7 +104,7 @@ class Participant {
     let lastCard = this.cards[lastCardIdx];
     this.handTotal += lastCard.getPoints();
     if (lastCard.getRank() === 'Ace' &&
-    this.getHandTotal() > TwentyOneGame.BUST_SCORE) {
+    this.getHandTotal() > Participant.BUST_SCORE) {
       this.handTotal -= 10;
     }
   }
@@ -122,7 +122,7 @@ class Participant {
 class Player extends Participant {
   constructor() {
     super();
-    this.playerDollars = TwentyOneGame.START_DOLLARS;
+    this.playerDollars = Participant.START_DOLLARS;
   }
 
   getDollars() {
@@ -151,10 +151,6 @@ class Dealer extends Participant {
 
 class TwentyOneGame {
   static NUMBER_OF_STARTING_CARDS = 2
-  static BUST_SCORE = 21;
-  static WIN_DOLLARS = 10;
-  static LOOSE_DOLLARS = 0;
-  static START_DOLLARS = 5;
 
   constructor() {
     this.player = new Player();
@@ -170,8 +166,8 @@ class TwentyOneGame {
       if (!this.player.isBusted()) this.dealerTurn();
       this.displayResult();
       this.updateDollars();
-      if (this.player.getDollars() === TwentyOneGame.LOOSE_DOLLARS ||
-          this.player.getDollars() === TwentyOneGame.WIN_DOLLARS) {
+      if (this.player.getDollars() === Participant.LOOSE_DOLLARS ||
+          this.player.getDollars() === Participant.WIN_DOLLARS) {
         this.endOverallGameMessage();
         break;
       } else if (this.playAgainPrompt() === 'n') {
@@ -184,7 +180,8 @@ class TwentyOneGame {
   }
 
   endRound() {
-    this.resetHandsAndTotals();
+    this.resetHands();
+    this.resetTotals();
     console.clear();
     this.dollarUpdatePrompt();
   }
@@ -208,9 +205,9 @@ class TwentyOneGame {
   getWinner() {
     let playerTotal = this.player.getHandTotal();
     let dealerTotal = this.dealer.getHandTotal();
-    if (dealerTotal > TwentyOneGame.BUST_SCORE) {
+    if (dealerTotal > Participant.BUST_SCORE) {
       return this.player;
-    } else if (playerTotal > TwentyOneGame.BUST_SCORE) {
+    } else if (playerTotal > Participant.BUST_SCORE) {
       return this.dealer;
     } else if (playerTotal > dealerTotal) {
       return this.player;
@@ -232,14 +229,16 @@ class TwentyOneGame {
 
   launchGame () {
     this.deck = new Deck();
-    this.shuffleDeck();
     this.dealInitialCards();
   }
 
-  resetHandsAndTotals() {
+  resetHands() {
     this.player.clearCards();
-    this.player.resetHandTotal();
     this.dealer.clearCards();
+  }
+
+  resetTotals() {
+    this.player.resetHandTotal();
     this.dealer.resetHandTotal();
   }
 
@@ -334,8 +333,8 @@ class TwentyOneGame {
   displayWelcomeMessage() {
     prompt('Welcome to 21!');
     prompt(`You currently have ${this.player.getDollars()} dollars`);
-    prompt(`You need ${TwentyOneGame.WIN_DOLLARS} dollars to win`);
-    prompt(`But if you end up with ${TwentyOneGame.LOOSE_DOLLARS} dollars`
+    prompt(`You need ${Participant.WIN_DOLLARS} dollars to win`);
+    prompt(`But if you end up with ${Participant.LOOSE_DOLLARS} dollars`
     + ` you lose!`);
     prompt("Every time you win a game, you win a dollar.");
     prompt("But every time you lose a game, you lose a dollar!");
@@ -350,13 +349,13 @@ class TwentyOneGame {
     this.showHandAndTotalScore(this.player);
     this.showHandAndTotalScore(this.dealer);
     if (winner === this.player) {
-      if (this.dealer.getHandTotal() > TwentyOneGame.BUST_SCORE) {
+      if (this.dealer.getHandTotal() > Participant.BUST_SCORE) {
         prompt('Dealer busted! You win! Congratulations');
       } else {
         prompt('You win! Congratulations');
       }
     } else if (winner === this.dealer) {
-      if (this.player.getHandTotal > TwentyOneGame.BUST_SCORE) {
+      if (this.player.getHandTotal > Participant.BUST_SCORE) {
         prompt("You busted! Dealer wins! What a shame!");
       } else {
         prompt('Dealer wins! What a shame!');
@@ -364,10 +363,6 @@ class TwentyOneGame {
     } else {
       prompt("It's a tie. Boring...");
     }
-  }
-
-  shuffleDeck() {
-    shuffle(this.deck.getDeck());
   }
 
   playAgainPrompt() {
