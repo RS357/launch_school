@@ -3,30 +3,6 @@ let readline = require('readline-sync');
 function prompt(str) {
   console.log(`==> ${str}`);
 }
-/*
-Game (n)
-  start (v)
-
-Deck (n)
-  deal (v) (should this be here, or in Dealer?)
-
-  Card (n)
-
-  Participant (n)
-
-  Player (n)
-  hit (v)
-  stay (v)
-  bust (state)
-  Score (n, state)
-
-Dealer (n)
-  hit (v)
-  stay (v)
-  deal (v) (should this be here, or in Deck?)
-  bust (state)
-  Score (n, state)
-*/
 
 class Card {
   constructor(suit, rank) {
@@ -141,39 +117,31 @@ class Participant {
   getHandTotal() {
     return this.handTotal;
   }
-
 }
 
 class Player extends Participant {
   constructor() {
     super();
-    this.playerDollars = 5;
-    //STUB
-    // What sort of state does a player need?
-    // Score? Hand? Amount of money available?
+    this.playerDollars = TwentyOneGame.START_DOLLARS;
   }
 
   getDollars() {
     return this.playerDollars;
   }
+
+  incrementDollars() {
+    this.playerDollars += 1;
+  }
+
+  decrementDollars() {
+    this.playerDollars -= 1;
+  }
 }
 
 class Dealer extends Participant {
-  // Very similar to a Player; do we need this?
   constructor() {
     super();
     this.maxScore = 17;
-  }
-
-  hide() {
-    //STUB
-  }
-
-  reveal() {
-    //STUB
-  }
-  dealInitialCards(player, dealer) {
-    // STUB
   }
 
   getMaxScore() {
@@ -184,6 +152,9 @@ class Dealer extends Participant {
 class TwentyOneGame {
   static NUMBER_OF_STARTING_CARDS = 2
   static BUST_SCORE = 21;
+  static WIN_DOLLARS = 10;
+  static LOOSE_DOLLARS = 0;
+  static START_DOLLARS = 5;
 
   constructor() {
     this.player = new Player();
@@ -192,23 +163,77 @@ class TwentyOneGame {
   }
 
   start() {
-    while (this.player.getDollars() < 10) {
-      this.deck = new Deck();
-      console.clear();
-      this.displayWelcomeMessage();
-      this.shuffleDeck();
-      this.dealInitialCards();
+    this.displayWelcomeMessage();
+    while (true) {
+      this.launchGame();
       this.playerTurn();
       if (!this.player.isBusted()) this.dealerTurn();
       this.displayResult();
-      if (this.playAgainPrompt() === 'n') {
+      this.updateDollars();
+      if (this.player.getDollars() === TwentyOneGame.LOOSE_DOLLARS ||
+          this.player.getDollars() === TwentyOneGame.WIN_DOLLARS) {
+        this.endOverallGameMessage();
+        break;
+      } else if (this.playAgainPrompt() === 'n') {
         this.displayGoodbyeMessage();
         break;
-      } else if (this.player.getDollars() === 0) {
-        this.lostOverallGameMessage();
+      } else {
+        this.endRound();
       }
-      this.resetHandsAndTotals();
     }
+  }
+
+  endRound() {
+    this.resetHandsAndTotals();
+    console.clear();
+    this.dollarUpdatePrompt();
+  }
+
+  updateDollars() {
+    let winner = this.getWinner();
+    if (winner === this.player) {
+      this.player.incrementDollars();
+    } else if (winner === this.dealer) {
+      this.player.decrementDollars();
+    }
+  }
+
+  dollarUpdatePrompt() {
+    prompt(
+      `You now have ${this.player.getDollars()} dollars.` +
+      ` You need 10 dollars to win and will lose at 0 dollars.`
+    );
+  }
+
+  getWinner() {
+    let playerTotal = this.player.getHandTotal();
+    let dealerTotal = this.dealer.getHandTotal();
+    if (dealerTotal > TwentyOneGame.BUST_SCORE) {
+      return this.player;
+    } else if (playerTotal > TwentyOneGame.BUST_SCORE) {
+      return this.dealer;
+    } else if (playerTotal > dealerTotal) {
+      return this.player;
+    } else if (dealerTotal > playerTotal) {
+      return this.dealer;
+    } else {
+      return 'tie';
+    }
+  }
+
+  endOverallGameMessage() {
+    prompt(`You have ${this.player.getDollars()} dollars.`);
+    if (this.player.getDollars() === 10) {
+      prompt("You won the round! Congratulations!");
+    } else if (this.player.getDollars() === 0) {
+      prompt("You lost the round! Better luck next time!");
+    }
+  }
+
+  launchGame () {
+    this.deck = new Deck();
+    this.shuffleDeck();
+    this.dealInitialCards();
   }
 
   resetHandsAndTotals() {
@@ -218,42 +243,44 @@ class TwentyOneGame {
     this.dealer.resetHandTotal();
   }
 
-  showHandAndTotalScore(participant) {
+  showHandAndTotalScore(participant, hideCard = false) {
     prompt(`${participant.constructor.name} has:`
-    + ` ${this.listCardRanks(participant)} for a`
+    + ` ${this.listCardRanks(participant, hideCard)} for a`
     + ` total of ${participant.getHandTotal()}`);
   }
 
-  showHand(participant) {
+  showHand(participant, hideCard = false) {
     prompt(`${participant.constructor.name} has:`
-    + ` ${this.listCardRanks(participant)}`);
+    + ` ${this.listCardRanks(participant, hideCard)}`);
   }
 
-  showFinalHandAndScore(participant) {
-    prompt(`${participant.constructor.name} has:`
-    + ` ${this.listCardRanks(participant, 'finalRound')} for a`
-    + ` total of ${participant.getHandTotal()}`);
-  }
-
-  listCardRanks(participant, finalRound = false) {
+  listCardRanks(participant, hideCard = false) {
     let cards = participant.getCards();
     if (cards.length === 2) {
-      if (participant === this.dealer && !finalRound) {
-        return `${cards[0].getRank()} of ${cards[0].getSuit()}`
-        + ` and an unknown card`;
-      } else {
-        return `${cards[0].getRank()} of ${cards[0].getSuit()}`
-        + ` and ${cards[1].getRank()} of ${cards[1].getSuit()}`;
-      }
+      return this.listTwoCards(cards, hideCard);
     } else {
-      let allCardsButLast = cards.slice(0, cards.length - 1);
-      let allCardRanksButLast = allCardsButLast.map(card => {
-        return `${card.getRank()} of ${card.getSuit()}`;
-      });
-      let lastCardIdx = cards.length - 1;
-      return `${allCardRanksButLast.join(', ')} and`
-      + ` ${cards[lastCardIdx].getRank()} of ${cards[lastCardIdx].getSuit()}`;
+      return this.listAllCards(cards);
     }
+  }
+
+  listTwoCards(cards, hideCard) {
+    if (hideCard) {
+      return `${cards[0].getRank()} of ${cards[0].getSuit()}`
+      + ` and an unknown card`;
+    } else {
+      return `${cards[0].getRank()} of ${cards[0].getSuit()}`
+      + ` and ${cards[1].getRank()} of ${cards[1].getSuit()}`;
+    }
+  }
+
+  listAllCards(cards) {
+    let allCardsButLast = cards.slice(0, cards.length - 1);
+    let allCardRanksButLast = allCardsButLast.map(card => {
+      return `${card.getRank()} of ${card.getSuit()}`;
+    });
+    let lastCardIdx = cards.length - 1;
+    return `${allCardRanksButLast.join(', ')} and`
+    + ` ${cards[lastCardIdx].getRank()} of ${cards[lastCardIdx].getSuit()}`;
   }
 
   dealInitialCards() {
@@ -273,9 +300,9 @@ class TwentyOneGame {
 
   playerTurn() {
     while (true) {
-      prompt('hit or stay?');
-      this.showHand(this.dealer);
+      this.showHand(this.dealer, true);
       this.showHandAndTotalScore(this.player);
+      prompt('hit or stay?');
       let playerChoice = readline.question().toLowerCase();
       if (playerChoice === 'hit') {
         prompt('you hit');
@@ -291,23 +318,27 @@ class TwentyOneGame {
   }
 
   dealerTurn() {
-    this.showHandAndTotalScore(this.dealer);
     while (this.dealer.getHandTotal() < this.dealer.getMaxScore()) {
       prompt("Dealer hits!");
       this.dealCard(this.dealer);
       this.dealer.updateHandTotal();
-      this.showHandAndTotalScore(this.dealer);
       if (this.dealer.isBusted()) {
-        prompt('Dealer busted - you win!');
         break;
       } else if (this.dealer.getHandTotal >= this.dealer.getMaxScore()) {
         prompt("Dealer stays!");
       }
+      this.showHandAndTotalScore(this.dealer);
     }
   }
 
   displayWelcomeMessage() {
     prompt('Welcome to 21!');
+    prompt(`You currently have ${this.player.getDollars()} dollars`);
+    prompt(`You need ${TwentyOneGame.WIN_DOLLARS} dollars to win`);
+    prompt(`But if you end up with ${TwentyOneGame.LOOSE_DOLLARS} dollars`
+    + ` you lose!`);
+    prompt("Every time you win a game, you win a dollar.");
+    prompt("But every time you lose a game, you lose a dollar!");
   }
 
   displayGoodbyeMessage() {
@@ -315,18 +346,21 @@ class TwentyOneGame {
   }
 
   displayResult() {
-    let playerTotal = this.player.getHandTotal();
-    let dealerTotal = this.dealer.getHandTotal();
-    this.showFinalHandAndScore(this.player);
-    this.showFinalHandAndScore(this.dealer);
-    if (dealerTotal > TwentyOneGame.BUST_SCORE) {
-      prompt('Dealer busted! You win! Congratulations');
-    } else if (playerTotal > TwentyOneGame.BUST_SCORE) {
-      prompt("You busted! Dealer wins! What a shame!");
-    } else if (playerTotal > dealerTotal) {
-      prompt('You win! Congratulations');
-    } else if (dealerTotal > playerTotal) {
-      prompt('Dealer wins! What a shame!');
+    let winner = this.getWinner();
+    this.showHandAndTotalScore(this.player);
+    this.showHandAndTotalScore(this.dealer);
+    if (winner === this.player) {
+      if (this.dealer.getHandTotal() > TwentyOneGame.BUST_SCORE) {
+        prompt('Dealer busted! You win! Congratulations');
+      } else {
+        prompt('You win! Congratulations');
+      }
+    } else if (winner === this.dealer) {
+      if (this.player.getHandTotal > TwentyOneGame.BUST_SCORE) {
+        prompt("You busted! Dealer wins! What a shame!");
+      } else {
+        prompt('Dealer wins! What a shame!');
+      }
     } else {
       prompt("It's a tie. Boring...");
     }
