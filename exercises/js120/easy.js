@@ -120,7 +120,11 @@ class Cat extends Animal {
 
 }
 
-class Dog extends Animal {}
+class Dog extends Animal {
+  constructor() {
+    
+  }
+}
 
 let cat = new Cat("Pepe", 2, "happy");
 console.log(cat.introduce() === "Hello, my name is Pepe and I am 2 years old and happy. Meow meow!");
