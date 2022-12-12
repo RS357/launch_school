@@ -1,60 +1,94 @@
-/*
-This new class doesn't fit well with our existing class hierarchy:
- Catamarans don't have tires, and aren't wheeled vehicles. 
- However, we still want to share the code for tracking fuel 
- efficiency and range (fuelCapInLiter). Modify the class definitions 
- and move code into a mix-in, as needed, to share code 
- between the  Catamaran and the wheeled vehicle classes.
-*/
+// /*
+// 2
 
-let trackRange = {
-  range() {
-    return this.fuelCap *  this.fuelEfficiency;
+// const Speed = {
+//   goFast() {
+//     console.log(`I'm a ${this.constructor.name} and going super fast!`);
+//   }
+// };
+
+// class Car {
+//   goSlow() {
+//     console.log(`I'm safe and driving slow.`);
+//   }
+// }
+
+// Object.assign(Car.prototype, Speed)
+
+// class Truck {
+//   goVerySlow() {
+//     console.log(`I'm a heavy truck and like going very slow.`);
+//   }
+// }
+
+// Object.assign(Truck.prototype, Speed)
+
+// let truck = new Truck();
+// truck.goFast()
+// let car = new Car();
+// car.goFast();
+
+// 3)
+// */
+
+// class WheeledVehicle {
+//   constructor(tirePressure, kmTravelledPerLiter, fuelCapInLiter) {
+//     this.tires = tirePressure;
+//     this.fuelEfficiency = kmTravelledPerLiter;
+//     this.fuelCap = fuelCapInLiter;
+//   }
+
+//   tirePressure(tireIdx) {
+//     return this.tires[tireIdx];
+//   }
+
+//   inflateTire(tireIdx, pressure) {
+//     this.tires[tireIdx] = pressure;
+//   }
+
+//   range() {
+//     return this.fuelCap *  this.fuelEfficiency;
+//   }
+// }
+
+// class Auto extends WheeledVehicle {
+//   constructor() {
+//     // the array represents tire pressure for four tires
+//     super([30,30,32,32], 50, 25.0);
+//   }
+// }
+
+// class Motorcycle extends WheeledVehicle {
+//   constructor() {
+//     // array represents tire pressure for two tires
+//     super([20,20], 80, 8.0);
+//   }
+// }
+
+// class Catamaran {
+//   constructor(propellerCount, hullCount, kmTravelledPerLiter, fuelCapInLiter) {
+//     // catamaran specific logic
+
+//     this.propellerCount = propellerCount;
+//     this.hullCount = hullCount;
+//   }
+// }
+
+class Foo {
+  constructor(parm) {
+    this.parm = parm;
   }
-};
 
-class WheeledVehicle {
-  constructor(tirePressure, kmTravelledPerLiter, fuelCapInLiter) {
-    this.tires = tirePressure;
-    this.fuelEfficiency = kmTravelledPerLiter;
-    this.fuelCap = fuelCapInLiter;
+  static bar() {
+    // omitted code
   }
 
-  tirePressure(tireIdx) {
-    return this.tires[tireIdx];
-  }
-
-  inflateTire(tireIdx, pressure) {
-    this.tires[tireIdx] = pressure;
+  prototype: {
+    qux() {
+      return "yoo";
+    }
   }
 }
 
-Object.assign(WheeledVehicle.prototype, trackRange);
-
-class Auto extends WheeledVehicle {
-  constructor() {
-    // the array represents tire pressure for four tires
-    super([30,30,32,32], 50, 25.0);
-  }
-}
-
-class Motorcycle extends WheeledVehicle {
-  constructor() {
-    // array represents tire pressure for two tires
-    super([20,20], 80, 8.0);
-  }
-}
-
-class Catamaran {
-  constructor(propellerCount, hullCount, kmTravelledPerLiter, fuelCapInLiter) {
-    // catamaran specific logic
-
-    this.propellerCount = propellerCount;
-    this.hullCount = hullCount;
-    this.fuelEfficiency = kmTravelledPerLiter;
-    this.fuelCap = fuelCapInLiter;
-  }
-}
-
-
-Object.assign(Catamaran.prototype, trackRange);
+let foo = new Foo(10);
+console.log(foo.qux())

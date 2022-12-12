@@ -4,17 +4,15 @@
 3) 4
 4) 
 */
-let assignProperty = (obj, prop, val) => {
-  let prototype = obj;
-  while (Object.getPrototypeOf(prototype) !== Object.prototype) {
-    prototype = Object.getPrototypeOf(prototype);
-    if (prototype.hasOwnProperty(prop)) {
-      prototype[prop] = val;
-      break;
-    }
+function assignProperty(obj, prop, val) {
+  if (obj === null) { // property not found
+    return;
+  } else if (obj.hasOwnProperty(prop)) {
+    obj[prop] = val;
+  } else {
+    assignProperty(Object.getPrototypeOf(obj), prop, val);
   }
-};
-
+}
 let fooA = { bar: 1 };
 let fooB = Object.create(fooA);
 let fooC = Object.create(fooB);

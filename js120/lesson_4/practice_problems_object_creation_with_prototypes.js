@@ -1,10 +1,10 @@
 /*
 1) 
-function createPet(animal , name) {
+
+function createPet(animal, name) {
   return {
     animal,
     name,
-
     sleep() {
       console.log("I am sleeping");
     },
@@ -12,16 +12,18 @@ function createPet(animal , name) {
     wake() {
       console.log("I am awake");
     }
-  };
+  }
 }
+
 2)
 
 let PetPrototype = {
-  sleep: function () {
-    console.log("I am sleeping")
+
+  sleep() {
+    console.log("I am sleeping");
   },
 
-  wake: function() {
+  wake() {
     console.log("I am awake");
   },
 
@@ -30,13 +32,14 @@ let PetPrototype = {
     this.name = name;
     return this;
   }
-};
 
-3) The factory function is less efficient in terms of memory because every object created will
-contain a full copy of every mothod in the factory function, whereas the objects created via the 
-OLOO pattern won't because the methods are defined in the prototype object (which all objects share).
-However factory function pattern allows you to restrict access to the object's 
-properties and methods so there is more privacy in that regard. Any state storeed in the body 
-of a factory function instead of the returned object can't be accessed by that 
-returned object unless one of the object methods exposes that state. 
-*/
+  3) The objects created by the factory function contain a copty of all the methods
+  defined in the returned object of that function. This is expensive in terms 
+  of memory and introduces reundancy. 
+
+  The objects that inherit from petPrototype and that are created via the OLOO pattern 
+  all inherit from petProtoype. All objects created via this OLOO pattern share the same methods on the prototype object.
+  This uses less memory than the factory function method.
+  However these objects cannot have private state. 
+
+  */

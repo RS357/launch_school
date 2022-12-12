@@ -121,8 +121,8 @@ class Cat extends Animal {
 }
 
 class Dog extends Animal {
-  constructor() {
-    
+  constructor(name, age, stat) {
+
   }
 }
 
