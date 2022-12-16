@@ -187,6 +187,10 @@ class Person {
   walks() {
     console.log(`Hi I am ${this.name} and I am ${this.age} years old. I walk.`);
   }
+
+  ages() {
+    this.age += 1;
+  }
 }
 
 
@@ -224,7 +228,9 @@ class PhysicsStudent extends Student {
 }
 
 
-
+let person = new Person('riz', 33);
+person.ages()
+console.log(person.age);
 
 
 
