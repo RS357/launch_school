@@ -240,12 +240,102 @@ are referred to as 'bare' objects. You can create them by passing
 'null' to the Object.create() method:
 */ 
 
-let obj1 = Object.create(null); // bare object
-let obj2 = {}; // object whose prototype is Object.prototype
+// let obj1 = Object.create(null); // bare object
+// let obj2 = {}; // object whose prototype is Object.prototype
 
-console.log(Object.getPrototypeOf(obj1)); // null because obj1 is a bare object
-// and so doesn't have a prototype - so its internal [[Prototype]] property is 
-// assigned to null. 
+// console.log(Object.getPrototypeOf(obj1)); // null because obj1 is a bare object
+// // and so doesn't have a prototype - so its internal [[Prototype]] property is 
+// // assigned to null. 
 
-console.log(Object.getPrototypeOf(obj2)); // logs Object.prototype because 
-// obj1 is not a bare object and was created using the object literal syntax. 
+// console.log(Object.getPrototypeOf(obj2)); // logs Object.prototype because 
+// // obj1 is not a bare object and was created using the object literal syntax. 
+
+
+/*
+Function declarations vs function expressions
+A function declaration is a function definition. It is hoisted before JavaScript 
+executes and so can be called before it is defined. This is a way to test
+if a function is defined via a declaration instead of via an expression. 
+A function declaration will be the first thing on its line. 
+Example:
+*/
+
+// func() 
+
+// function func() {
+//   console.log('I am a declaration');
+// }
+
+// /*
+// A function expression is a function declaration where there is some kind of character
+// in the statment before the definition begins (on the same line). Function expressions are not hoisted.
+// Example:
+// */
+
+// // func2() // will throw an error
+
+// let func2 = function() {
+//   console.log('I am an expression');
+// }
+
+// func2();
+
+// First Class functions 
+/*
+In JavaScript functions are first class values. This means they can be assigned to
+variables, passed to other functions as arguments and returned from functions. 
+
+Example:
+*/
+
+// let func = function() {
+//   console.log(`I am ${this.name}`);
+// }
+
+// let funcVar = func;
+// funcVar(); // will call func
+
+// let func2 = function(func) {
+//   return func;
+// }
+
+// let funcVar2 = func2(func);
+// funcVar2(); // will call func
+
+// Type of a function value 
+/*
+In Javascript a function value is type 'function'. 
+*/
+
+// Higher Order Functions 
+/*
+A higher order function is a function that takes at least one function as an argument,
+returns at least one function or does both.
+
+This is an example of a higher order function that 
+takes another function as an argument:
+*/
+
+// function callFuncOnListVals (func, list) {
+//   for (let idx = 0; idx < list.length; idx += 1) {
+//     func(list[idx]);
+//   }
+// }
+
+// callFuncOnListVals((val) => console.log(val), [1, 2, 3])
+
+// Another example, this time of a function that can return another function,
+// is below:
+
+// let greeting = function(lang) {
+//   if (lang === 'English') {
+//     return () => console.log("Hello")
+//   } else if (lang === 'French') {
+//     return () => console.log("Bonjour")
+//   }
+// }
+
+// let greetEnglish = greeting("English");
+// greetEnglish();
+
+// The Global Object
