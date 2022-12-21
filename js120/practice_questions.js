@@ -339,3 +339,103 @@ takes another function as an argument:
 // greetEnglish();
 
 // The Global Object
+
+/*
+The global object is created when JavaScript starts running and 
+is the implicit execution context for all functions called as stand-alone 
+functions. In node, the global object is called global. In the browser, it
+is called window.
+
+Example:
+*/
+
+// function func() {
+//   console.log(this);
+// }
+
+// func();
+
+/*
+the global object is available everywhere in your program and is where 
+many important properties are defined.
+*/
+// console.log(global.isNaN);
+// console.log(Object.getOwnPropertyNames(global));
+
+
+// Undeclared variables on the global object 
+/*
+Variables declared without the let, const or var keywords
+are decared on the global object by default.
+
+Examples:
+*/
+
+// let a = 1;
+// const b = 2;
+// var c = 3;
+// d = 4
+// console.log(global.a);
+// console.log(global.b);
+// console.log(global.c);
+// console.log(global.d);
+
+/*
+Whenever you try to access properties that are no local or global variables, JavaScript 
+looks for it on the global object. The global object is accessible everywhere 
+in your program.
+*/
+
+/*
+Implicit and Explicit Execution Context
+The execution context of a function is the object represented
+by the 'this' keyword. Execution context can be set implicitly and explicitly.
+
+When a function is called as a stand-alone function, its execution context is 
+implicitly set to the global object:
+*/
+
+// function func() {
+//   console.log(this);
+// }
+
+// func() // logs the global object 
+
+/*
+Another way to set a function's execution context implicitly is to call it using
+a method (this is called 'method execution context'): 
+*/
+
+// let obj = {
+//   func() {
+//     console.log(this);
+//   }
+// }
+
+// obj.func(); // logs the obj object
+
+/*
+A function's execution context can also be set explicitly.. This can 
+be done using the call, apply and bind methods:
+*/
+
+// let obj = {
+//   a: 1
+// }
+
+// function func() {
+//   console.log(this.a);
+// }
+
+// func.call(obj);
+// func.apply(obj);
+// let bound = func.bind(obj);
+// bound();
+
+/*
+Strict mode and execution context
+When JavaScript runs in strict mode, the implicit 'this'
+of functions called as stand-alone functions is not the global object
+ - it is undefined. 
+
+*/
