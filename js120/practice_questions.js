@@ -478,3 +478,18 @@ Example:
 // Dealing with Context Loss
 
 // Method copied from object (and passed to another function as an argument)
+function callThreeTimes(func) {
+  func();
+  func();
+  func();
+}
+
+let obj = {
+  a: 1,
+  objFunc() {
+    console.log(this.a);
+  },
+}
+
+callThreeTimes(obj.objFunc);
+
