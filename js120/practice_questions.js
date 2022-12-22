@@ -435,7 +435,46 @@ be done using the call, apply and bind methods:
 /*
 Strict mode and execution context
 When JavaScript runs in strict mode, the implicit 'this'
-of functions called as stand-alone functions is not the global object
- - it is undefined. 
+of functions called as stand-alone functions is not set to the global object
+ - it is set to undefined. 
 
+ Example:
 */
+
+// "use strict"
+// function func() {
+//   console.log(this);
+// }
+// func()
+
+// Hard binding functions with contexts 
+/*
+You can bind functions to objects using the bind method. This returns a function that 
+will always be bound to that object - no matter where it is called. 
+Example:
+*/
+
+// function func() {
+//   console.log(this.a);
+// }
+// let obj = {
+//   a: 1
+// }
+// let copiedFunc = func.bind(obj); 
+// // copiedFunc();
+
+// /*
+// Even if you call the function, returned by the bind call, and explicitly set 
+// its execution context to another object it will remain bound to the object 
+// it was originally bound to:
+// */
+// let obj2 = {
+//   a: 2
+// }
+
+// let copiedFunc2 = copiedFunc.bind(obj2);
+// copiedFunc2(); // logs 1
+
+// Dealing with Context Loss
+
+// Method copied from object (and passed to another function as an argument)
