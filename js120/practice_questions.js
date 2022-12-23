@@ -478,18 +478,302 @@ Example:
 // Dealing with Context Loss
 
 // Method copied from object (and passed to another function as an argument)
-function callThreeTimes(func) {
-  func();
-  func();
-  func();
-}
+/*
+the problem is that when objects are copied out their objects they lose their context. 
+In this example the function is passed to another function as an argument and so 
+loses its context. 
+*/
+// function callThreeTimes(func) {
+//   func();
+//   func();
+//   func();
+// }
 
+// let obj = {
+//   a: 1,
+//   objFunc() {
+//     console.log(this.a);
+//   },
+// }
+
+// callThreeTimes(obj.objFunc);
+
+// Solutions:
+// 1) Pass the execution context along with the function and then explicitly 
+// bind it to that execution context. 
+
+// function callThreeTimes(func, context) {
+//   func.call(context);
+//   func.call(context);
+//   func.call(context);
+// }
+
+// let obj = {
+//   a: 1,
+//   objFunc() {
+//     console.log(this.a);
+//   },
+// }
+
+// callThreeTimes(obj.objFunc, obj);
+
+
+// 2) bind the function to its context before passing it
+
+//function callThreeTimes(func) {
+//   func();
+//   func();
+//   func();
+// }
+
+// let obj = {
+//   a: 1,
+//   objFunc() {
+//     console.log(this.a);
+//   },
+// }
+
+// callThreeTimes(obj.objFunc.bind(obj));
+
+
+// Inner function not using the surrounding context 
+
+// let obj = {
+//   a: 1,
+//   outterFunc() {
+//     function innerFunc() {
+//       console.log(this.a);
+//     }
+//     innerFunc();
+//   }
+// }
+
+// obj.outterFunc();
+
+// Solutions:
+
+// use lexical scoping rules to preserve context 
+
+// let obj = {
+//   a: 1,
+//   outterFunc() {
+//     let self = this; 
+//     function innerFunc() {
+//       console.log(self.a);
+//     }
+//     innerFunc();
+//   }
+// }
+
+// obj.outterFunc();
+
+// use the call method to set innerFunc's context explicitly. 
+
+// let obj = {
+//   a: 1,
+//   outterFunc() {
+//     function innerFunc() {
+//       console.log(this.a);
+//     }
+//     innerFunc.call(this);
+//   }
+// }
+
+// obj.outterFunc();
+
+
+// use the call method to set innerFunc's context explicitly. 
+
+// let obj = {
+//   a: 1,
+//   outterFunc() {
+//     function innerFunc() {
+//       console.log(this.a);
+//     }
+//     innerFunc.bind(this)();
+//   }
+// }
+
+// obj.outterFunc();
+
+// Use an arrow Function
+
+// let obj = {
+//   a: 1,
+//   outterFunc() {
+//     // function innerFunc() {
+//     //   console.log(this.a);
+//     // }
+//     let innerFunc = () => console.log(this.a);
+//     innerFunc();
+//   }
+// }
+
+// obj.outterFunc();
+
+// Function as argument losing surrounding context 
+
+// let obj = {
+//   a: 'riz',
+//   func() {
+//     [1, 2, 3].forEach(function func(num) {
+//       console.log(`${num}: ${this.a}`)
+//     })
+//   }
+// }
+
+// obj.func();
+
+// solutions
+// 1) use lexical scoping to preserve execution context:
+
+// let obj = {
+//   a: 'riz',
+//   func() {
+//     let self = this;
+//     [1, 2, 3].forEach(function func(num) {
+//       console.log(`${num}: ${self.a}`)
+//     })
+//   }
+// }
+
+// obj.func();
+
+// use bind 
+
+// let obj = {
+//   a: 'riz',
+//   func() {
+//     [1, 2, 3].forEach(function func(num) {
+//       console.log(`${num}: ${this.a}`)
+//     }.bind(this))
+//   }
+// }
+
+// obj.func();
+
+// use thisArg
+
+// let obj = {
+//   a: 'riz',
+//   func() {
+//     [1, 2, 3].forEach(function func(num) {
+//       console.log(`${num}: ${this.a}`)
+//     }, this)
+//   }
+// }
+
+// obj.func();
+
+
+// use an arrow function
+
+
+// let obj = {
+//   a: 'riz',
+//   func() {
+//     [1, 2, 3].forEach((num) => {
+//       console.log(`${num}: ${this.a}`)
+//     })
+//   }
+// }
+
+// obj.func();
+
+
+// Lesson 3
+// Constructor Functions 
+/*
+A constructor function is a function that is used to create objects and 
+is a way to JavaScript to implement an inheritance model similar to the class-based
+OOP patterns in other languages. 
+
+This model entails constructors inheriting from each other via their prototype objects.
+
+All functions caBAR ARROW FUNCTIONSbe a constructor. This is because arrow functions 
+do not have a prototype property. Constructor functions are called using the 'new'
+keyword.
+
+Example:
+// this also includes most of the 'constructors with prototyps' section...
+*/
+
+// function Human(name, age) {
+//   this.name = name;
+//   this.age = age;
+// }
+
+// Human.prototype.ages = function() {
+//   this.age += 1; 
+// }
+
+// function Student(name, age, subject) {
+//   Human.call(this, name, age);
+//   this.subject = subject; 
+// }
+
+// Student.prototype = Object.create(Human.prototype);
+
+// Student.prototype.changeSubject = function(subject) {
+//   this.subject = subject; 
+// }
+
+// let riz = new Student('riz', 33, 'history')
+// riz.changeSubject('maths');
+// riz.ages();
+// console.log(riz.subject) // 'maths' 
+// console.log(riz.age) // 
+
+// Supplying constructor arguments with plain objects 
+// When you need to pass a lot of arguments to a constructor. It can 
+// be easier to pass it an object instead. Functions that take a lot of arguments
+// can become confusing and it is easy to pass arguments to the wrong parameters
+ASSESS THIS AND CARRY ON
+// Example:
 let obj = {
-  a: 1,
-  objFunc() {
-    console.log(this.a);
-  },
+  name: 'riz',
+  age: 33,
 }
 
-callThreeTimes(obj.objFunc);
+function Human(args) {
+  this.name = args.name;
+  this.age = args.age;
+}
+
+Human.prototype.ages = function() {
+  this.age += 1; 
+}
+
+let riz = new Human(obj);
+console.log(riz.age);
+
+// Determining an object's type
+
+// new and implicit execution context 
+
+ // constructors with explicit return values 
+ // if a constructor is called with the new keyword and 
+ // explicitly returns that object, it will return that object 
+ // instead of the one created when calling it with the new keyword:
+
+// function Table(colour) {
+//   this.colour = colour
+//   return {a: 1}
+// }
+
+// let table = new Table('red');
+// console.log(table);
+
+// If a constructor function explicitly returns a primitive, it will 
+// return the object created when calling it with the new keyword and 
+// not the primitive.
+
+
+// function Table(colour) {
+//   this.colour = colour
+//   return 'riz';
+// }
+
+// let table = new Table('red');
+// console.log(table.colour);
 
