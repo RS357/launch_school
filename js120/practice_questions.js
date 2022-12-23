@@ -690,7 +690,7 @@ OOP patterns in other languages.
 
 This model entails constructors inheriting from each other via their prototype objects.
 
-All functions caBAR ARROW FUNCTIONSbe a constructor. This is because arrow functions 
+All functions bar arrow functions can be a constructor. This is because arrow functions 
 do not have a prototype property. Constructor functions are called using the 'new'
 keyword.
 
@@ -728,28 +728,46 @@ Example:
 // When you need to pass a lot of arguments to a constructor. It can 
 // be easier to pass it an object instead. Functions that take a lot of arguments
 // can become confusing and it is easy to pass arguments to the wrong parameters
-ASSESS THIS AND CARRY ON
 // Example:
-let obj = {
-  name: 'riz',
-  age: 33,
-}
+// let obj = {
+//   name: 'riz',
+//   age: 33,
+// }
 
-function Human(args) {
-  this.name = args.name;
-  this.age = args.age;
-}
+// function Human(args) {
+//   Object.assign(this, args);
+//   console.log(this);
+// }
 
-Human.prototype.ages = function() {
-  this.age += 1; 
-}
+// Human.prototype.ages = function() {
+//   this.age += 1; 
+// }
 
-let riz = new Human(obj);
-console.log(riz.age);
+// However, one drawback with this approach i that the args object
+// may contain properties that are not relevant to Human. These properties may 
+// just be excess baggage for objects to carry around but could cause trouble too. 
+
+// let riz = new Human(obj);
+// console.log(riz.age);
 
 // Determining an object's type
 
+/*
+You can determine an object's type by using the instanceof keyword:
+*/
+
+// console.log(riz instanceof Human); // true 
+
 // new and implicit execution context 
+/*
+Calling a function with new sets that function's execution 
+context to the object created and then returned after it is called
+with the new keyword.
+
+Example:
+*/
+
+// let riz = new Human(obj); // logs the object returned by the constructor and assigned to the 'riz' variable
 
  // constructors with explicit return values 
  // if a constructor is called with the new keyword and 
@@ -764,7 +782,7 @@ console.log(riz.age);
 // let table = new Table('red');
 // console.log(table);
 
-// If a constructor function explicitly returns a primitive, it will 
+// In all other situations, the constructor will 
 // return the object created when calling it with the new keyword and 
 // not the primitive.
 
@@ -777,3 +795,92 @@ console.log(riz.age);
 // let table = new Table('red');
 // console.log(table.colour);
 
+// Overriding the prototype:
+
+/*
+You can override properties on an object constructor's prototype object.
+
+In the below example, the ages property on the Student constructor's prototype object overrides 
+the ages property on the Human constructor's prototype object. 
+*/
+
+
+// function Human(name, age) {
+//   this.name = name;
+//   this.age = age;
+// }
+
+// Human.prototype.ages = function() {
+//   this.age += 1; 
+// }
+
+// function Student(name, age, subject) {
+//   Human.call(this, name, age);
+//   this.subject = subject; 
+// }
+
+// Student.prototype = Object.create(Human.prototype);
+
+// Student.prototype.changeSubject = function(subject) {
+//   this.subject = subject; 
+// }
+
+// Student.prototype.ages = function() {
+//   this.age += 2;
+// }
+
+// let riz = new Student('riz', 33, 'history');
+// riz.ages();
+// console.log(riz.age) // 35
+
+// Static and Instance properties and methods
+
+// Instance properties and methods
+
+/*
+Instance properties and methods are available on the instances of an object - they are not 
+available directly on the constructor of said objects. They are defined on 
+the prototype of the objects' constructor or on the instance itself.
+
+Example:
+*/
+
+// function Human(name) {
+//   this.name = name;
+// }
+
+// Human.prototype.walks = function() {
+//   console.log('I walk');
+// }
+
+// let riz = new Human('riz')
+// riz.walks(); // logs 'I walk
+// // Human.walks() // throws error because walks is an instance method and so is not avaiable on the constructor 
+
+// riz.func = function() {console.log('I am a func')};
+// riz.func();
+
+// Static PRoperties and Methods
+
+// Static properties and methods are defined  on the constructor function
+// and are only available on the constructor. 
+// Example:
+
+function Human(name) {
+  this.name = name;
+}
+
+Human.introduce = function() {
+  console.log(`Hi, I am a ${Human.species}`);
+}
+
+Human.species = 'homo sapien'
+
+Human.prototype.walks = function() {
+  console.log('I walk');
+}
+
+Human.introduce(); // logs 'I exist'
+console.log(Human.species); // true 
+// Human.walks() // throws error because Human.prototype.walks is an instance method - not 
+// a static method available on the Human constructor. 
