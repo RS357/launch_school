@@ -866,21 +866,238 @@ Example:
 // and are only available on the constructor. 
 // Example:
 
-function Human(name) {
-  this.name = name;
-}
+// function Human(name) {
+//   this.name = name;
+// }
 
-Human.introduce = function() {
-  console.log(`Hi, I am a ${Human.species}`);
-}
+// Human.introduce = function() {
+//   console.log(`Hi, I am a ${Human.species}`);
+// }
 
-Human.species = 'homo sapien'
+// Human.species = 'homo sapien'
 
-Human.prototype.walks = function() {
-  console.log('I walk');
-}
+// Human.prototype.walks = function() {
+//   console.log('I walk');
+// }
 
-Human.introduce(); // logs 'I exist'
-console.log(Human.species); // true 
+// Human.introduce(); // logs 'I exist'
+// console.log(Human.species); // true 
 // Human.walks() // throws error because Human.prototype.walks is an instance method - not 
 // a static method available on the Human constructor. 
+
+// Built-in Constructors
+// The Array Constructor 
+
+// You can create an array by using the array constructor.
+// Passing in a series of values to the constructor 
+// will mean that constructor returns an array containing those values:
+// let arr = new Array(1, 2, 3)
+// console.log(arr);
+
+// If you pass one non-negative integer to the constructor,
+// it will return an empty array of the length of that integer: 
+
+// let arr = new Array(3)
+// console.log(arr);
+
+// The single number constructor, coupled with the fill method.
+// allows you to fill an array of fixed length with a 
+// specific value:
+
+// let arr = (new Array(9)).fill('*')
+// console.log(arr);
+
+// Note that passing a a negative integer or a non-integer 
+// to the array constructor throws an error.
+
+// let arr = new Array(1.5);
+// console.log(arr);
+
+// You don't need to use the 'new' keyword.
+
+// let arr = Array(1, 2, 3);
+// console.log(arr);
+
+// The Array constructor's prototype object has some 
+// useful methods defined on it. An example is 
+// Array.prototype.forEach, which iterates over the 
+// array.
+
+// [1, 2, 3].forEach(val => console.log(val));
+
+// Static array methods: 
+
+// Array.isArray()
+// This method ascertains whether the argument 
+// passed to it is an array:
+// console.log(Array.isArray([]));
+
+// This is necessary because using the typeof keyword
+// on an array doesn't really help:
+
+// console.log(typeof []);
+
+// Array.from()
+// Array.from takes an array-like object and returns an array
+// with that object's keys (which need to be non-negative integers)
+// as the index value's to those keys' respective values in the object.
+// The object passed in must have a length property.  
+
+// let arr = Array.from({0: 'a', 1: 'b', length: 2});
+// console.log(arr);
+
+// The object constructor:
+
+// One way to create an object is by using the object literal syntax:
+// let obj = {};
+
+// Another way is by using the object constructor:
+
+// let obj = new Object();
+// // obj.a = 1;
+// console.log(obj) // {a: 1}
+
+// You can ommit the new keyword: 
+// let obj = Object();
+// obj.a = 1;
+// console.log(obj) // {a: 1}
+
+// There are lots of methods on the prototype object of the 
+// Object constructor. One useful one is 
+// Object.prototype.isPrototypeOf():
+
+// Example: 
+// let obj1 = {};
+// let obj2 = Object.create(obj1);
+// console.log(obj1.isPrototypeOf(obj2)); // true 
+
+// Object.prototype.toString
+// This method as defined on the Object.prototype object 
+// is not very useful - it just returns [object Object]
+
+// let obj = {};
+// console.log(obj.toString());
+
+// But other constructors override it to produce more useful
+// output:
+
+// let arr = [1, 2, 3];
+// console.log(arr.toString()); // =>  '1,2,3'
+
+// let func = function() {console.log('a')};
+// console.log(func.toString()); // => function() {console.log('a')} 
+
+// The Date constructor: 
+
+// The date constructor is used to return an object from which
+// dates and times can be extracted:
+
+// let date = new Date('24 December 2022');
+// console.log(date)
+// console.log(date.getFullYear());
+
+// The Date constructor prototype : getFullYear and getDate
+// The getFullYear method on the Date.prototype object 
+// returns the year of the date instance it is called on.
+
+// let date = new Date('24 December 2022');
+// console.log(date.getFullYear()); //2022
+// console.log(date.getDate()); // 22 
+// console.log(date.getDay()); // 6
+
+// The String Constructor
+
+// We know that strings are primitives because the strict
+// equality operator compares strings by value rather than by
+// reference: 
+
+// console.log('riz' === 'riz'); // true
+
+// Objects are only 'equal' in JavaScript as per the strict 
+// equality operator if they have the same identity:
+
+// let obj1 = {};
+// let obj2 = {};
+// console.log(obj1 === obj2); // false
+// let obj3 = obj1;
+// console.log(obj1 === obj3); // true
+
+// let string = new String('abc');
+// console.log(string); // string is not assigned to a string - it is
+// // assigned to an object that is an instance of the String 
+// constructor:
+// console.log(typeof string); // object
+// console.log(typeof 'riz'); // string
+// console.log(string.valueOf()); // 'abc'
+
+// Calling the string constructor without the new keyword 
+// returns a string:
+
+// let str = String('riz');
+// console.log(str) // 'riz'
+
+// How can we call methods on strings e.g. riz.toUpperCase() 
+// when methods can't be defined on primitives? JavaScript 
+// wraps the string in an object of String type and then 
+// calls the method (which must be defined on the prototype 
+// object of the String constructor):
+
+// console.log('riz'.toUpperCase()); // 'RIZ' 
+
+// Afterwards, JavaScript discards the wrapping object.
+
+// The String constructor takes non-string values as arguments too.
+// It then coerces them to type String:
+// let num = String(12);
+// let bool = String(true);
+// console.log(num);  // '12'
+// console.log(bool); // 'bool'
+
+// The number and boolean constructors
+
+// The Number constructor:
+// The number constructor returns an object of type Number:
+
+// let num = new Number('12');
+// console.log(num);
+
+// Calling the Number constructor without the new keyword
+// coerces its arugment to a primitive value of Number type and 
+// returns it.
+
+// let num = Number('12');
+// console.log(num);
+
+
+// The boolean Constructor
+
+// The Boolean constructor, when called with the new keyword,
+// returns an object of type Boolean. When called without 
+// the new keyword, it coerces the value passed to it to 
+// type boolean and returns it:
+
+// let bool1 = new Boolean('yes');
+// console.log(bool1 instanceof Boolean); // true 
+// let bool2 = Boolean('yes');
+// console.log(bool2); // 'true
+
+// Extending built-in prototypes: 
+// We can add properties to the prototype objects of built-in
+// constructors:
+
+// Array.prototype.getFirst = function() {
+//   return this[0];
+// }
+
+// let arr = [1, 2, 3];
+// console.log(arr.getFirst()); // 1
+
+// Borrowing array methods for strings
+// Given array methods work on values of other types 
+// whose values are indexed with integers and that 
+// have a length property , we can use 
+// array methods on strings by explicitly setting 
+// the execution context of those methods to the string: 
+
+// [].forEach.call('riz', val => console.log(val));
+
