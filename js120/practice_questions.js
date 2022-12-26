@@ -1101,3 +1101,258 @@ Example:
 
 // [].forEach.call('riz', val => console.log(val));
 
+// ES6 classes
+
+// ES6 classes are syntatic sugar over constructor functions. 
+// They were implemented as a way for programmers who 
+// work with other languages to transition to working with JavaScript.
+
+// Class declarations
+
+// class Human {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+
+//   ages() {
+//     this.age += 1;
+//   }
+// }
+
+// class Student extends Human {
+//   constructor(name, age, subject) {
+//     super(name, age);
+//     this.subject = subject;
+//   }
+
+//   changeSubject(newSubject) {
+//     this.subject = newSubject;
+//   }
+// }
+
+// let riz = new Student('riz', 33, 'history');
+// riz.ages();
+// console.log(riz.age); //34
+// riz.changeSubject('maths');
+// console.log(riz.subject); // 'maths'
+
+// is the same as...
+
+// function Human(name, age) {
+//   this.name = name;
+//   this.age = age;
+// }
+
+// Human.prototype.ages = function() {
+//   this.age += 1;
+// }
+
+// function Student(name, age, subject) {
+//   Human.call(this, name, age);
+//   this.subject = subject;
+// }
+// Student.prototype = Object.create(Human.prototype);
+// Student.prototype.constructor = Student;
+// Student.prototype.changeSubject = function(newSubject) {
+//   this.subject = newSubject;
+// }
+
+// let riz = new Student('riz', 33, 'history');
+// riz.ages();
+// console.log(riz.age); //34
+// riz.changeSubject('maths');
+// console.log(riz.subject); // 'maths'
+// console.log(riz.constructor);
+
+// Class expressions
+
+
+// let Human = class  {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+
+//   ages() {
+//     this.age += 1;
+//   }
+// }
+
+// let Student = class Student extends Human {
+//   constructor(name, age, subject) {
+//     super(name, age);
+//     this.subject = subject;
+//   }
+
+//   changeSubject(newSubject) {
+//     this.subject = newSubject;
+//   }
+// }
+
+// let riz = new Student('riz', 33, 'history');
+// console.log(riz.age);
+
+// Classes as first class citizens 
+// First class citizens are values that can be 
+// passsed to functions as arguments, returned by 
+// functions, and assigned to properies. Classes
+// meet this criteria and qualify as first class citizens.
+
+// class passed to a function
+
+// function makeHuman(humanClass) {
+//   let human = new humanClass(33);
+//   console.log(human.age); // 33
+// }
+
+// class Human {
+//   constructor(age) {
+//     this.age = age;
+//   }
+// }
+
+// makeHuman(Human); // 33
+
+// class returned from a function: 
+
+// function makeHumanClass() {
+//   return class Human {
+//     constructor(age) {
+//       this.age = age;
+//     }
+//   }
+// }
+
+// let humanClass = makeHumanClass();
+// let human = new humanClass(33);
+// console.log(human.age) // 
+
+// classes assigned to properties: 
+// let obj = {
+//   humanClass: class Human {
+//     constructor(name, age) {
+//       this.name = name; 
+//       this.age = age;
+//     }
+//     ages() {
+//       this.age += 1;
+//     }
+//   }
+// }
+
+// let human = new obj.humanClass('riz', 33);
+// human.ages();
+// console.log(human.age); // 34
+
+// Static methods and properties: 
+
+
+// let Human = class  {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+
+
+//   static func() {
+//     console.log("I am func");
+//   }
+
+//   ages() {
+//     this.age += 1;
+//   }
+// }
+
+// Human.species = 'homo sapien';
+
+// Human.func(); // I am func
+// console.log(Human.species) // homo sapien
+
+
+// Lesson 4
+// The OLOO pattern 
+
+// The OLOO pattern is an OOP pattern that entails objects
+// inheriting from a 'prototype' object via their internal 
+// [[Prototype]] properties: 
+
+// let Prototype = {
+//   init(name, age) {
+//     // Object.assign(this, name, age);
+//     this.name = name;
+//     this.age = age;
+//     return this;
+//   }
+// }
+
+// let Human = Object.create(Prototype);
+
+// let Student = Object.create(Human);
+// Student.init = function(name, age, subject) {
+//   Prototype.init.call(this, name, age);
+//   this.subject = subject;
+//   return this; 
+// }
+
+// let riz = Object.create(Student).init('riz', 33, 'math')
+// console.log(riz.subject);
+
+
+
+// Advantages of OLOO over Factory Functions:
+/*
+With factory functions the every object has 
+copy of every method whereas with the OLOO pattern
+objects inherit from a prototype object and 
+via prototypal inheritance which means you can define 
+the properties that objects need on the prototype 
+object and have the objects created delegate property 
+access to that prototype. this eliminates the redunancy that 
+occurs when using the factory function model and saves memory 
+and computing resource. 
+
+
+However the factory functions pattern allows you to create objects 
+with private state. 
+*/
+
+
+// Code reuse with mixins 
+/*
+ Mixins are used to get around the JavaScript's
+single inhertiance rule (that is that an object can only 
+have one prototype). JavaScript does not allow for multiple 
+inheritance. 
+
+Example:
+
+*/
+
+// function Mum() {
+// }
+// Mum.prototype.hair = 'curly';
+
+// function Dad() {
+// }
+// Dad.prototype.eyes = 'brown';
+
+// function Child() {
+
+// }
+
+// Child.prototype = Object.create(Dad.prototype);
+// Object.assign(Child.prototype, Mum.prototype);
+// Child.prototype.constructor = Child;
+
+
+// let riz = new Child();
+
+// console.log(riz.eyes); // 'brown'
+// console.log(riz.hair); // 'curly'
+
+// polymorphism 
+
+// polymorphism through duck typing
+
+// polymorphism through inheritance
