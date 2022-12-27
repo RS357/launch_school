@@ -1354,5 +1354,287 @@ Example:
 // polymorphism 
 
 // polymorphism through duck typing
+/*
+Polymorphism through duck typing is when objects of 
+different types respond (potentially in different ways) to
+the same method invocation.
+*/
+
+// class Fish {
+//   breath() {
+//     console.log('breathes on land')
+//   }
+// }
+
+// class Mammal {
+//   breath() {
+//     console.log('breathes under the water');
+//   }
+// }
+
+// let arr = [new Fish(), new Mammal()];
+// arr.forEach(animal => animal.breath());
 
 // polymorphism through inheritance
+/*
+Polymorphism through inheritance is when a method 
+defined on an object's constructor's prototype object can 
+be overriden (or not), giving way for objects of different types 
+to respond to the same method invocation in different ways
+Example:
+*/
+
+// class Animal {
+//   moves(){
+//     console.log('I move');
+//   }
+// }
+
+// class Mammal extends Animal {
+//   moves() {
+//     console.log("I walk on 4 legs")
+//   }
+// }-
+
+// class Human extends Mammal {
+//   moves() {
+//     console.log("I walk on 2 legs")
+//   }
+// }
+
+// [new Animal(), new Mammal(), new Human()].forEach(
+//   animal => animal.moves()
+// );
+
+/*
+You have recently watched Lion King as well as Jungle Book and have decided to take the best
+of both these worlds and develop some OOP magic. In this Lion King x Jungle Book world of ours, Lions have two characteristics:
+1) they are friendly;
+2) they are in the Lion King
+Lions also have certain behavior, namely they roar and say 'Hakuna Matata'
+
+Tigers, likewise, have two characteristics:
+1) they enjoy swimming;
+2) they are in the Jungle Book
+Tigers also have certain behavior, namely they chase and say 'I am chasing the man-cub'
+
+Your task, should you chose to accept it, is to create a Liger (https://en.wikipedia.org/wiki/Liger).
+A Liger is an animal whose father is a Lion and whose mother is a Tiger. 
+The liger you create should inherit ALL properties and functionality from its parents, as follows:
+
+console.log(liger.roar()) // 'Hakuna Matata'
+console.log(liger.chase()) // 'I am chasing the man-cub'
+console.log(liger.inLionKing) // true
+console.log(liger.isFriendly) // true
+console.log(liger.enjoysSwimming) // true
+console.log(liger.inJungleBook) // true
+
+Please construct this relationship using the following patterns:
+1) Constructor Prototypes
+2) OLOO
+3) Factory functions
+
+How you set up the relationship between the child liger, and parent Lion and Tiger is up to you.
+*/
+
+// Constructor Prototypes:
+
+// function Tiger() {
+
+// }
+
+// Tiger.prototype.isFriendly = true;
+// Tiger.prototype.inLionKing  = true;
+// Tiger.prototype.roar = function () {
+//   return 'Hakuna Matata';
+// }
+
+// function Lion() {
+
+// }
+// Lion.prototype.enjoysSwimming = true;
+// Lion.prototype.inJungleBook = true;
+// Lion.prototype.chase = function() {
+//   return 'I am chasing the man-cub';
+// }
+
+// function Liger() {
+
+// }
+
+// Liger.prototype = Object.create(Tiger.prototype);
+// Object.assign(Liger.prototype, Lion.prototype);
+
+// let liger = new Liger();
+
+
+// function Tiger() {
+
+// }
+
+// Tiger.prototype.isFriendly = true;
+// Tiger.prototype.inLionKing  = true;
+// Tiger.prototype.roar = function () {
+//   return 'Hakuna Matata';
+// }
+
+// function Lion() {
+
+// }
+
+
+// OLOO
+
+// let Tiger = {
+//   isFriendly: true,
+//   inLionKing: true,
+//   roar () {
+//     return 'Hakuna Matata';
+//   }
+// };
+
+// let Lion = {
+//   enjoysSwimming: true,
+//   inJungleBook: true,
+//   chase: function() {
+//     return 'I am chasing the man-cub';
+//   }
+// };
+
+// let Liger = Object.create(Tiger);
+// Object.assign(Liger, Lion);
+
+// let liger = Object.create(Liger);
+
+
+// Factory Functions 
+
+// function createTiger() {
+//   return {
+//     isFriendly: true,
+//     inLionKing: true,
+//     roar() {
+//       return 'Hakuna Matata';
+//     }
+//   }
+// }
+
+// function createLion() {
+//   return {
+//     enjoysSwimming: true,
+//     inJungleBook: true,
+//     chase() {
+//       return 'I am chasing the man-cub';
+//     }
+//   }
+// }
+
+// function createLiger() {
+//   let tiger = createTiger();
+//   let lion = createLion();
+//   return Object.assign(tiger, lion)
+// }
+
+// let liger = createLiger();
+
+// console.log(liger.roar()) // 'Hakuna Matata'
+// console.log(liger.chase()) // 'I am chasing the man-cub'
+// console.log(liger.inLionKing) // true
+// console.log(liger.isFriendly) // true
+// console.log(liger.enjoysSwimming) // true
+// console.log(liger.inJungleBook) // true
+
+// What is encapsulation in the context of OOP?
+// Encapsulation in the context of OOP is the grouping together
+// of data and actions that operate on that date into a single 
+// entity i.e. an object. 
+
+// In other languages, OOP also entails the restriction of 
+// access to an object's properties by code that uses that 
+// object. In other words other OOP languages allow for 
+// the creation of public interfaces on objects. JavaScript 
+// doesn't really implement access restriction in the same
+// way.
+
+// Example:
+
+// let human = {
+//   age: 32,
+//   ages: function ages() {
+//     this.age += 1
+//   }
+// }
+
+// let riz = human;
+// riz.ages();
+// console.log(riz.age); // 33
+
+// What is inheritance in the context of JS? 
+/*
+Inheritance in the context of JS entails an 
+object inheriting from a prototype object. This happens
+when an object's internal [[Prototype]] property points to its 
+prototype. This allows an object to delegate property 
+access to its prototype. Objects can inherit from other objects 
+that also inherit from other objects. When JavaScript 
+attempts to access a property on object, if it can't
+find the property on that object it searches up that object's
+prototype chain and, if it cannot find the property, it returns
+undefined. 
+*/
+
+
+// Example:
+// In the below example, we set the internal [[Prototype]] property
+// of obj2 to point to obj1. This means that when we try to access
+// the property a on obj2 on line 1596, JavaScript looks up 
+// the prototype chain (via the internal [[Prototype]] 
+// property of obj2) for the property a because it is not 
+// set on obj2, and finds it on obj1. 
+// let obj1 = {
+//   a: 1
+// }
+
+// let obj2 = Object.create(obj1);
+// console.log(obj2.a); // 1
+
+// let dogPrototype = {
+//   makeSound() {
+//     console.log('sound');
+//   }
+// }
+
+// let dog = Object.create(dogPrototype);
+
+// dog.makeSound(); // sound
+// console.log(dog.hasOwnProperty('makeSound')); //false
+
+// What is the difference between Object.create() and 
+// Object.assign()
+
+// The Object.create method returns an object whose internal 
+// [[Prototype]] property points to the object passed to it 
+// as an argument. This is demonstrated by calling 
+// Object.getPrototypeOf() below. It returns the prototype 
+// object of the object passed to it as an argument.
+
+// let obj1 = {
+//   a: 1
+// }
+
+// let obj2 = Object.create(obj1);
+// console.log(Object.getPrototypeOf(obj2)); // obj1
+
+// Object.assign(obj, otherObj, ...) copies the properties
+// of every object passed to it (other than the first object
+// argument) to the first object passed to it as an argument. 
+// It returns the first object passed to it as an argument.
+// Example: 
+
+// let obj1 = {a: 1};
+// let obj2 = {b: 2};
+// let obj3 = {c: 3};
+
+// let newObj1 = Object.assign(obj1, obj2, obj3);
+// console.log(obj1); // {a: 1, b: 2, c:3}
+// console.log(obj1 === newObj1)// true
