@@ -1638,3 +1638,136 @@ undefined.
 // let newObj1 = Object.assign(obj1, obj2, obj3);
 // console.log(obj1); // {a: 1, b: 2, c:3}
 // console.log(obj1 === newObj1)// true
+
+// let obj = {};
+// let obj2 = Object.create(obj);
+// obj.prototype = null;
+// let func = () => 'a';
+// console.log(func instanceof Function);
+
+// let obj = Object();
+// obj.a = 1;
+// console.log(obj.a); //1
+
+// let arr = Array();
+// arr.a = 1;
+// console.log(arr.a);
+
+
+/*
+Why is the context lost in this situation? Fix it.
+*/
+
+// function printHello(func, context) {
+//   func.call(context);
+// }
+
+// let shirt = {
+//   a : 'Hello',
+//   b : 'World',
+//   foo : function (){
+//     printHello(function() {
+//       console.log(this.a + this.b)
+//     }, this)
+//   }
+// }
+
+// shirt.foo();
+
+
+// Make some scope safe constructors 
+// function Human(name, age) {
+//   if(!(this instanceof Human)) {
+//     return new Human(name, age);
+//   }
+//   this.name = name;
+//   this.age = age;
+// }
+
+// Human.prototype.ages = function() {
+//   this.age += 1;
+// }
+// let riz = Human('riz', 33)
+// riz.ages();
+// console.log(riz.age) // 34
+
+// Static methods are methods that are defined 
+// on the constructor/class. They can be accessed directly 
+// via the constructor class.
+
+// Instance methods are methods that can only be accessed
+// via an instance of the constructor/class. They are 
+// defined either on the constructor/class's prototype 
+// object or on the instance itself. 
+
+// Example: 
+
+// function Human(name, age) {
+//   this.name = name;
+//   this.age = age;
+// }
+
+// Human.prototype.ages = function() {
+//   this.age += 1;
+// }
+
+// Human.Species = function() {
+//   return 'Homo Sapien';
+// }
+
+// let riz = new Human('riz', 33);
+// console.log(Human.Species)
+// riz.ages();
+// console.log(riz.age); //34
+
+
+/*
+In this example, Human.Species is a static method that 
+can only be accessed via the Human constructor itself. Whereas 
+Human.prototype.ages is an instance method that can only 
+be accessed via a Human instance (in this case the one 
+  assigned to the riz variable on line 1718).
+*/
+
+/*
+How can you call methods on the String prototype on string primitives? 
+
+When you call a method on the String constructor's prototype object
+JavaScript wraps the primitive in an instance of the String
+constructor. That then means you can call methods on the String
+prototype on string primitives.
+
+Example:
+*/
+
+// let name = 'riz';
+// let upperCaseStr = name.toUpperCase();
+// console.log(upperCaseStr);
+
+// How does the super keyword work?
+
+/*
+The super keyword can be used to call a class's parent's constructor 
+function:
+
+*/
+
+// class Human {
+//   constructor(name) {
+//     this.name = name;
+//   }
+// }
+
+// class Student extends Human {
+//   constructor(name, subject) {
+//     super(name);
+//     this.subject = subject;
+//   }
+// } 
+
+// let riz = new Student('riz', 'math');
+// console.log(riz.name);
+// console.log(riz.subject);
+
+// What is polymorphism? 
+
