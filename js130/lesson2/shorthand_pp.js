@@ -80,4 +80,37 @@
 
 // 9)
 
-// 10) CARRY ON
+// 10) 
+
+/*
+OPTIONAL Write a function that takes 5 string arguments, and returns an object with 3 properties:
+
+first: the first argument
+last: the last argument
+middle: the middle 3 arguments as a sorted array
+After writing the function, write some code to call the function. 
+The arguments you provide should come from an array. 
+You should create local variables named first, last, and middle from the return value.
+
+Use shorthand syntax wherever you can.
+*/
+
+// function func(first, second, third, forth, fifth) {
+//   return {
+//     first: first,
+//     last: fifth,
+//     middle: [second, third, forth].sort()
+//   }
+// }
+// let arr = ['a', 'b', 'c', 'd', 'e'];
+// let {first, middle, last} = func(...arr);
+
+// console.log(first); // a
+// console.log(last); // ['b', 'c', 'd']
+// console.log(middle); // e
+
+console.log(module);
+console.log(exports);
+console.log(require);
+console.log(__dirname);
+console.log(__filename);
