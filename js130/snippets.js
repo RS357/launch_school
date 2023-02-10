@@ -435,5 +435,20 @@ https://launchschool.com/lessons/43f23069/assignments/9362d2cf
 30) Private data practice problems at:
 https://launchschool.com/lessons/43f23069/assignments/3df10c91
 
-*/
 
+-------------------------------------------------------------
+
+31) 
+practice problems at https://launchschool.com/lessons/43f23069/assignments/a200fbec
+
+-------------------------------------------------------------
+
+32) List the side effects in the function below:
+
+function insertNumberInOrder(arrayOfNumbers) {
+  arrayOfNumbers = arrayOfNumbers.slice();
+  arrayOfNumbers.push(arrayOfNumbers); //
+  arrayOfNumbers.sort((a, b) => a - b); //
+  return arrayOfNumbers; //
+
+*/
