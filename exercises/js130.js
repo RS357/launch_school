@@ -1,5 +1,5 @@
 let readline = require('readline-sync');
-"use strict"
+"use strict";
 
 /*
 Function.prototype.bind is a method on all function objects
@@ -55,7 +55,7 @@ myStack
 // }
 
 /*
-Delegate 
+Delegate
 
 Write a delegate function that can be used to delegate the
 behavior of a method or function to another object's method.
@@ -98,11 +98,12 @@ bind returns a new function, whereas delegate maintains the reference.
 
 // let Account = {
 //   anonymize() {
-//     let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+// let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+//     "abcdefghijklmnopqrstuvwxyz0123456789";
 //     let displayName = '';
 //     for (let idx = 0; idx < 16; idx += 1) {
 //       let charsIdx = Math.floor(Math.random() * chars.length); 
-//       displayName += chars[charsIdx];       
+//       displayName += chars[charsIdx];
 //     }
 //      return displayName;
 //   },
@@ -140,16 +141,17 @@ bind returns a new function, whereas delegate maintains the reference.
 //           if (currentPassword !== password) {
 //             return 'Invalid Password';
 //           }
-//           let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+// let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+// "abcdefghijklmnopqrstuvwxyz0123456789";
 //           let newDisplayName = '';
 //           for (let idx = 0; idx < 16; idx += 1) {
-//             let charsIdx = Math.floor(Math.random() * chars.length); 
-//             newDisplayName += chars[charsIdx];       
+//             let charsIdx = Math.floor(Math.random() * chars.length);
+//             newDisplayName += chars[charsIdx];
 //           }
 //           this.displayName = newDisplayName;
 //           return true;
 //         },
-      
+
 //         resetPassword(currentPassword, newPassword) {
 //           if (currentPassword !== password) {
 //             return 'Invalid Password';
@@ -184,86 +186,156 @@ bind returns a new function, whereas delegate maintains the reference.
 // console.log(fooBar.email('abc'));               // 'baz@qux.com' but should 'foo@bar.com'
 
 
-// Mini Inventory Management System
+// // Mini Inventory Management System
 
-let ItemManager = (() => {
-  let itemStore = {};
+// function sKUCodeValidator(itemName, category, skuCode) {
+//   if (itemName[2] === ' ') {
+//     return skuCode === (itemName.slice(0, 2) +
+//     itemName[3] + category.slice(0, 2));
+//   } else {
+//     return skuCode === (itemName.slice(0, 3) + category.slice(0, 2));
+//   }
+// }
 
-  function sKUCodeValidator(itemName, category, SKUCode) {
-    if (itemName[2] === ' ') {
-      return SKUCode === (itemName.slice(0, 2) + itemName[3] + category.slice(0, 2)); 
-    } else {
-      return SKUCode === (itemName.slice(0, 3) + category.slice(0, 2)); 
-    }
-  };
-  function itemNameValidator(itemName) {
-    return true;
-  };
-  function categoryValidator(category) {return true};
-  function quantityValidator(quantity) {
-    return typeof quantity === 'number';
-  };
+// function itemNameValidator(itemName) {
+//   return typeof itemName === 'string' &&
+//     itemName.split('').filter(char => char !== ' ').join('').length >= 5;
+// }
 
-  function itemCreator(itemName, category, quantity, SKUCode) {
-    if (sKUCodeValidator(itemName, category, SKUCode) && itemNameValidator(itemName) 
-    && categoryValidator(category) && quantityValidator(quantity)) {
-      itemStore[SKUCode] = {
-        itemName,
-        category,
-        totalQuantity: quantity
-      }
-      return true;
-    } else {
-      return false;
-    }
-  };
+// function categoryValidator(category) {
+//   return (category.split('').every(char => char !== ' ') && category.length  >= 5);
+// }
 
-  function createSKUCode(itemName, category) {
-    if (itemName[2] === ' ') {
-      return (itemName.slice(0, 2) + itemName[3] + category.slice(0, 2)); 
-    } else {
-      return (itemName.slice(0, 3) + category.slice(0, 2)); 
-    }
-  };
+// function quantityValidator(quantity) {
+//   return typeof quantity !== undefined;
+// }
 
-  return {
-    items: [],
+// let itemCreator = function(itemName, category, quantity, skuCode, items) {
+//   let itemPropertiesValid = sKUCodeValidator(itemName, category, skuCode) &&
+//                                 itemNameValidator(itemName) &&
+//                                 categoryValidator(category) &&
+//                                 quantityValidator(quantity);
 
-    logItemStore() { // DELETE THIS FUNCTION AFTER DONE
-      console.log(itemStore);
-    },
+//   if (itemPropertiesValid) {
+//     let item = {
+//       skuCode: skuCode.toUpperCase(),
+//       itemName,
+//       category,
+//       quantity
+//     };
 
-    create(itemName, category, quantity) {
-      let SKUCode = createSKUCode(itemName, category);
-      if (itemStore.hasOwnProperty(SKUCode)) {       
-        itemStore[SKUCode].totalQuantity += quantity;
-      } else {
-        let itemCreated = itemCreator(itemName, category, quantity, SKUCode);
-        console.log('itemCreated?', itemCreated);
-        if (itemCreated) {
-          this.items.push(itemName);
-        } else {
-          return false;
-        }
-      }
-    },
+//     items.push(item);
+//   } else {
+//     return {notValid: 'true'};
+//   }
+// };
 
-    update(SKUCode, obj) {},
-    delete(SKUCode) {},
-    inStock() {},
-    itemsInCategory(category) {}
-  }
-})()
+// let ItemManager = (() => {
 
-ItemManager.create('basket ball', 'sports', 0);           // valid item
+//   function createSKUCode(itemName, category) {
+//     let skuCode;
+//     if (itemName[2] === ' ') {
+//       skuCode = (itemName.slice(0, 2) + itemName[3] + category.slice(0, 2));
+//     } else {
+//       skuCode = (itemName.slice(0, 3) + category.slice(0, 2));
+//     }
+//     return skuCode;
+//   }
+
+//   function itemsContains(skuCode, items) {
+//     return items.filter(item => item.skuCode === skuCode).length > 0;
+//   }
+
+//   function incrementItemQuantity(skuCode, quantity, items) {
+//     for (let item of items) {
+//       if (item.skuCode === skuCode) {
+//         item.quantity += quantity;
+//         break;
+//       }
+//     }
+//   }
+
+//   function getItem(skuCode, items) {
+//     let filtered = items.filter(item => item.skuCode === skuCode)[0];
+//     return filtered;
+//   }
+
+//   return {
+//     items: [],
+
+//     create(itemName, category, quantity) {
+//       let skuCode = createSKUCode(itemName, category);
+//       if (itemsContains(skuCode, this.items)) {
+//         incrementItemQuantity(skuCode, quantity, this.items);
+//       } else {
+//         let itemCreated = itemCreator(
+//           itemName,
+//           category,
+//           quantity,
+//           skuCode,
+//           this.items
+//         );
+
+//         if (itemCreated && itemCreated.hasOwnProperty('notValid')) {
+//           return false;
+//         }
+//       }
+//     },
+
+//     update(skuCode, obj) {
+//       let item = getItem(skuCode, this.items);
+//       Object.assign(item, obj);
+//     },
+
+//     delete(skuCode) {
+//       let item = getItem(skuCode, this.items);
+//       let itemIdx = this.items.indexOf(item);
+//       this.items.splice(itemIdx, 1);
+//     },
+
+//     inStock() {
+//       return this.items.filter(item => item.quantity > 0);
+//     },
+
+//     itemsInCategory(category) {
+//       return this.items.filter(item => item.category === category);
+//     }
+//   };
+// })();
+
+// let ReportManager = {
+//   init(itemManager) {
+//     this.items = itemManager;
+//   },
+
+//   createReporter(skuCode) {
+//     let item = this.items.items.filter(item => item.skuCode === skuCode)[0];
+//     return {
+//       itemInfo() {
+//         Object.keys(item).forEach(key => console.log(`${key}: ${item[key]}`));
+//       },
+//     };
+//   },
+
+//   reportInStock() {
+//     let inStockItems = this.items.items.filter(item => {
+//       return  item.quantity > 0;
+//     }).map(item => {
+//       return item.itemName;
+//     });
+//     console.log(inStockItems.join(","));
+//   }
+// };
+
+// ItemManager.create('basket ball', 'sports', 0);           // valid item
 // ItemManager.create('asd', 'sports', 0);
 // ItemManager.create('soccer ball', 'sports', 5);           // valid item
 // ItemManager.create('football', 'sports');
 // ItemManager.create('football', 'sports', 3);              // valid item
 // ItemManager.create('kitchen pot', 'cooking items', 0);
 // ItemManager.create('kitchen pot', 'cooking', 3);          // valid item
-// returns list with the 4 valid items
-console.log(ItemManager.items);
+// // returns list with the 4 valid items
+// ItemManager.items;
 
 // ReportManager.init(ItemManager);
 // // logs soccer ball,football,kitchen pot
@@ -297,3 +369,28 @@ console.log(ItemManager.items);
 // // itemName: kitchen pot
 // // category: cooking
 // // quantity: 10
+
+// Rest Parameters
+
+// function sum(...arr) {
+//   return arr.reduce(function(a, b) {
+//     return a + b;
+//   });
+// }
+
+// console.log(sum(1, 4, 5, 6)); // 16
+
+/*
+How can we refactor the invocation of the function formatName
+(without changing the function definition) so that we
+don't need to grab each element of the array fullName by index?
+*/
+
+// function formatName(firstName, middleName, lastName) {
+//   return `${lastName}, ${firstName} ${middleName[0]}.`;
+// }
+
+// fullName = ['James', 'Tiberius', 'Kirk'];
+
+// console.log(formatName(...fullName));
+// // logs: Kirk, James T.
