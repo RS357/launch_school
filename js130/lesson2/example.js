@@ -1,11 +1,21 @@
-let makeUniqueId = function () {
-  let count = 0;
-  return function() {
-    count += 1;
-    return count;
-  };
+/* eslint-disable */ 
+
+Pet.prototype.walk = function() {
+  console.log(`${this.name} is walking.`);
 };
 
-console.log(makeUniqueId()); // => 1
-console.log(makeUniqueId()); // => 2
-console.log(makeUniqueId()); // => 3
+function Pet(name, image) {
+  this.name = name;
+  this.image =  image;
+}
+
+class Image {
+  constructor(file) {
+    this.file = file;
+  }
+}
+
+var catImage = new Image("cat.png");
+var pudding = new Pet("Pudding", catImage);
+
+ /* eslint-enable */
