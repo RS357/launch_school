@@ -73,7 +73,6 @@ class TodoList {
         newList.add(todo);
       }
     });
-
     return newList;
   }
 
