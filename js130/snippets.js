@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 /*
 
 Written questions:
@@ -80,15 +82,19 @@ Code an example
 Code snippets:
 
 1) What do the three log calls below log?
+*/
 
-var bar = 42;
-console.log(global.bar); // 42
-bar += 1;
-console.log(global.bar); // 43
+// var bar = 42;
+// console.log(global.bar); 
+// bar += 1;
+// console.log(global.bar); 
 
-let foo = 86;
-console.log(global.foo); // undefined
+// let foo = 86;
+// console.log(global.foo);
+
+/*
 ---------------------------------------------------------------------------
+
 
 2) What will the following log?
 
@@ -98,8 +104,8 @@ function foo() {
     let b = 2;
   }
 
-  console.log(a); // 1
-  console.log(b); // ReferenceError: b is not defined
+  console.log(a);  
+  console.log(b);
 }
 
 foo();
@@ -112,10 +118,11 @@ function foo() {
     var a = 1;
   }
 
-  console.log(a); // undefined
+  console.log(a);
 }
 
 foo();
+
 -------------------------------------------------------------------------------
 
 4) What is the declared scope of every identifier in the code
@@ -138,6 +145,7 @@ function xyzzy() {
     var bar4 = 8;
   }
 }
+
 -------------------------------------------------------------------
 
 5) What is the visibility scope of every identifier
@@ -160,10 +168,12 @@ function xyzzy() {
     var bar4 = 8;
   }
 }
+
+
 ---------------------------------------------------------------
 6) What is the lexical scope of every identifier in the code below?
 
-let foo1 = 1;
+let foo1 = 1; 
 
 if (true) {
   let foo2 = 3;
@@ -180,19 +190,20 @@ function xyzzy() {
 ------------------------------------------------------------------------------
 7) What is the lexical scope of every identifier in the code below?
 
-var bar1 = 1;
+var bar1 = 1; 
 
 if (true) {
-  var bar2 = 3;
+  var bar2 = 3; 
 }
 
-function xyzzy() {
+function xyzzy() { 
   var bar3 = 5;
 
   if (true) {
     var bar4 = 7;
   }
 }
+
 --------------------------------------------------------------------------------
 8) What does this code look like after being hoisted?
 
@@ -201,8 +212,8 @@ console.log(getName());
 function getName() {
   return "Pete";
 }
--------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 
 9) What does JavaScript log below?
 
@@ -212,9 +223,9 @@ console.log(bar);
 
 -----------------------------------------------------------------------
 
-10) What does JavaScript log below?
+10) What does JavaScript log below? ( CONT) 
 
-console.log(foo); // ReferenceError: Cannot access 'foo' before initialization
+console.log(foo);
 let foo;
 
 --------------------------------------------------------------------------
@@ -227,7 +238,7 @@ const qux = 42;
 
 12) What does the following code log?
 
-console.log(baz);
+console.log(baz); 
 
 ---------------------------------------------------------------------------
 
@@ -262,10 +273,10 @@ function bar() {
 
 --------------------------------------------------------------------------------
 
-16)
+16) Post the hoisted version of this code:
 
 var bar = 'hello';
-bar();             // raises "TypeError: bar is not a function"
+bar();            
 
 function bar() {
   console.log('world');
@@ -275,7 +286,7 @@ function bar() {
 
 17) What is the hoisted version of this code?
 
-bar();              // logs undefined
+bar();              
 var foo = 'hello';
 
 function bar() {
@@ -291,6 +302,8 @@ let foo = "hello";
 function foo() {
   console.log("hello");
 }
+
+
 
 ------------------------------------------------------------------------------
 
@@ -324,7 +337,7 @@ let obj = {
 
 let doIt = obj.go;
 doIt();
-console.log(obj.a); // 5
+console.log(obj.a);
 
 -------------------------------------------------------------------
 
@@ -452,3 +465,5 @@ function insertNumberInOrder(arrayOfNumbers) {
   return arrayOfNumbers; //
 
 */
+
+/*eslint-enable */
