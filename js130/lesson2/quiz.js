@@ -21,3 +21,17 @@
 
 // 21) a, b, d
 // 22) c, e, f        X 
+
+/*
+Topics to go over again:
+hoisting,
+strict mode,
+closure
+partial function application
+private data - pros and cons
+IIFEs
+syntax  (rest and spread operators etc)
+side effects 
+
+
+*/
