@@ -1,11 +1,21 @@
-let makeUniqueId = function () {
-  let count = 0;
-  return function() {
-    count += 1;
-    return count;
-  };
-};
+// function xyzzy({a: qux, b: bar, c: foo}) {
+//   console.log(qux);
+//   console.log(bar);
+//   console.log(foo);
+// }
 
-console.log(makeUniqueId()); // => 1
-console.log(makeUniqueId()); // => 2
-console.log(makeUniqueId()); // => 3
+// let obj = {
+//   a: 1,
+//   b: 2,
+//   c: 3,
+// };
+
+// // xyzzy(obj);
+
+// ({a, b, c} = obj)
+
+// console.log(a);
+
+let foo = [1, 2, 3];
+let [first, second, third] = foo;
+console.log(first);

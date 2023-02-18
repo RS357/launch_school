@@ -1,34 +1,27 @@
 
 "use strict"
+// 1)
 
-/*
-Create a function named makeCounterLogger that takes a number
-as an argument and returns a function. When we invoke the
-returned function with a second number, it should count
-up or down from the first number to the second number,
-logging each number to the console:
-*/
-
-// function makeCounterLogger(start) {
-//   return function(finish) {
-//     if (start < finish) {
-//       for (let num = start; num <= finish; num += 1) {
-//         console.log(num);
+// function makeCounterLogger(num1) {
+//   return function(num2) {
+//     while (num1 !== num2) {
+//       console.log(num1);
+//       if (num1 < num2) {
+//         num1 += 1;
+//       } else {
+//         num1 -= 1;
 //       }
-//     } else {
-//       for (let num = start; num >= finish; num -= 1) {
-//         console.log(num);
-//       }
+//       if (num1 === num2) console.log(num1);
 //     }
 //   }
 // }
 
 // let countlog = makeCounterLogger(5);
-// countlog(8);
-// // 5
-// // 6
-// // 7
-// // 8
+// // countlog(8);s
+// // // 5
+// // // 6
+// // // 7
+// // // 8
 
 // countlog(2);
 // // 5
@@ -36,52 +29,38 @@ logging each number to the console:
 // // 3
 // // 2
 
+// 2)
 
-/*
-Write a makeList function that creates and returns a
-new function that implements a todo list.
-The returned function should have the following behavior:
-
-When called with an argument that is not already on
-the list, it adds that argument to the list.
-
-When called with an argument that is already
-on the list, it removes the element from the list.
-
-When called without arguments, it prints all
-of the items on the list.
-If the list is empty, it prints an appropriate message.
-*/
-
+/* eslint-disable */
 
 function makeList() {
-  let items = [];
+  let list = [];
 
   return {
     add(item) {
-      let itemIdx = items.indexOf(item);
-      if (itemIdx === -1) {
-        items.push(item);
+      let idx = list.indexOf(item);
+      if (idx === -1) {
         console.log(`${item} added!`);
+        list.push(item);
       }
     },
-
+    
     remove(item) {
-      let itemIdx = items.indexOf(item);
-      if (itemIdx !== -1) {
-        items.splice(itemIdx, 1);
-        console.log(`${item} removed`);
+      let idx = list.indexOf(item);
+      if (idx !== -1) {
+        let removed = list.splice(idx, 1);
+        console.log(`${removed} removed!`);
       }
     },
 
     list() {
-      if (items.length === 0) {
-        console.log("The list is empty.");
+      if (list.length === 0) {
+        console.log('The list is empty');
       } else {
-        items.forEach(item => console.log(item));
+        list.forEach(item => console.log(item));
       }
     }
-  };
+  }
 }
 
 let list = makeList();

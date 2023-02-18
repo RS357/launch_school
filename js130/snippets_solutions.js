@@ -1,3 +1,4 @@
+/*eslint-disable */
 /*
 1) 42, 43, undefined 
 2) 1, ReferenceError: b is not defined
