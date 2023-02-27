@@ -7,52 +7,28 @@ Written questions:
 build your own forEach method that takes the array as its
 first argument
 
-Do the questions at
-https://launchschool.com/lessons/896d0d67/assignments/12aa9516
-
-
 What do we mean by declared scope? Code an example
 
 What do we mean by visibility scope? Code an example
 
 What do we mean by lexical scope? Code an example
 
-What do we mean by global scope? Code an example
-
-What do we mean by  local scope? Code an example
-
-What do we mean by inner scope? Code an example
-
-What do we mean by outer scope? Code an example
-
-What do we mean by function scope and 
-block scope when talking about declared scope? Code an example
-
-What do we mean by function scope and block scope 
-when talking about visibility scope? Code an example
-
-What is hoisting? Code an example 
+What is hoisting? Code an example  
 
 How do var, let, and const interact with hoisting? How do they differ? 
-Code examples
+Code examples 
 
 How do functions and classes interact with hoisting? How do they differ?
-Code examples
-
-What part does hoisting play in the way a specific program works?
 Code examples
 
 How does hoisting really work?
 Code examples
 
-What is a closure? Provide an example.
-
-What is in a closure? Code an example if you wish.
+What is a closure? Provide an example. 
 
 When is a closure created? Code an example if you wish.
 
-What is the relationship between closures and scope?
-Code an example if you wish.
+What is the relationship between closures and scope? 
 
 What do we mean when we say that closures are defined lexically?
 Code an example if you wish.
@@ -60,7 +36,8 @@ Code an example if you wish.
 What is partial function application?
 Code an example if you wish.
 
-Explain why private data is desirable
+
+Explain why private data is desirable CONTINUE FROM HERE
 
 (IIFE = Immediately invoked function expressions)
 
