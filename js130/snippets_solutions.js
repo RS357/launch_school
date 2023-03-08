@@ -314,7 +314,7 @@ practice problems at https://launchschool.com/lessons/43f23069/assignments/a200f
 
 -------------------------------------------------------------
 
-32) 
+32) The function has no side effects 
 
 function insertNumberInOrder(arrayOfNumbers) {
   arrayOfNumbers = arrayOfNumbers.slice(); // creates a copy of an array

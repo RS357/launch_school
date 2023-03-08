@@ -344,11 +344,11 @@ console.log(1234567);
 console.log(0);
 console.log(0.123);
 console.log(-0.123);
-console.log(01234567);
-console.log(089);
-console.log(01.23);
-console.log(-01234567);
-console.log(-089);
+console.log(01234567); // error - number begins with 0
+console.log(089); // error - number begins with 0 
+console.log(01.23); // error - number begins with 0
+console.log(-01234567); // same as above but negative still error 
+console.log(-089); // same as bove 
 console.log(-01.23);
 
 -------------------------------------------------
