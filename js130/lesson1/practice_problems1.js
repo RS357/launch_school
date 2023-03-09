@@ -89,3 +89,44 @@ function mapper(array, callback) {
 
 let arr = [1, 2, 3];
 console.log(mapper(arr, val => val * 2));
+// 2)
+// function filter(arr, filterCallBack) {
+//   function reduceCallBack (accum, currentVal) {
+//     if (filterCallBack(currentVal)) {
+//       accum.push(currentVal);
+//       return accum;
+//     } else return accum;
+//   }
+//   return arr.reduce(reduceCallBack, []);
+// }
+
+// let numbers = [1, 2, 3, 4, 5];
+// console.log(filter(numbers, number => number > 3)); // => [ 4, 5 ]
+// console.log(filter(numbers, number => number < 0)); // => []
+// console.log(filter(numbers, () => true));           // => [ 1, 2, 3, 4, 5 ]
+
+// let values = [1, "abc", null, true, undefined, "xyz"];
+// console.log(filter(values, value => typeof value === "string"));
+// // => [ 'abc', 'xyz' ]
+
+// // 3)
+
+// function map(arr, mapCallBack) {
+//   function reduceCallBack (accum, currentVal) {
+//     accum.push(mapCallBack(currentVal));
+//     return accum;
+//   }
+//   return arr.reduce(reduceCallBack, []);
+// }
+
+// let numbers = [1, 2, 3, 4, 5];
+// console.log(map(numbers, number => number * 3));  // => [ 3, 6, 9, 12, 15 ]
+// console.log(map(numbers, number => number + 1));  // => [ 2, 3, 4, 5, 6 ]
+// console.log(map(numbers, () => false));
+// // => [ false, false, false, false, false ]
+
+// let values = [1, "abc", null, true, undefined, "xyz"];
+// console.log(map(values, value => String(value)));
+// // => [ '1', 'abc', 'null', 'true', 'undefined', 'xyz' ]
+
+>>>>>>> c3bd6def688ca9566bce9e92dc9d648699de1a37
