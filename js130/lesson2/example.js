@@ -1,5 +1,9 @@
-// 1)
-/*
-This code will log "Bye". This is because the function
-declaration 
-*/
+/*eslint-disable*/ 
+'use strict';
+
+function myBind(func, context, ...args) {
+  return function (...otherArgs) {
+    let allArgs = args.concat(otherArgs);
+    return func.apply(context, allArgs);
+  }
+}

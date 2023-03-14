@@ -24,6 +24,18 @@ Code examples
 How does hoisting really work?
 Code examples
 
+What is strict mode? How does it differ from sloppy mode?
+
+How do you enable strict mode at the global or function level?
+
+Describe how code behaves under both strict and sloppy mode.
+
+When is strict mode enabled automatically?
+
+When should you use (or not use) strict mode?
+
+What are the benefits of using strict mode?
+
 What is a closure? Provide an example. 
 
 When is a closure created? Code an example if you wish.
@@ -37,13 +49,13 @@ What is partial function application?
 Code an example if you wish.
 
 
-Explain why private data is desirable CONTINUE FROM HERE
+Explain why private data is desirable
 
 (IIFE = Immediately invoked function expressions)
 
 What are IIFEs? Code an example
 
-How do you use IIGEs?
+How do you use IIFEs?
 
 How do you use IIFEs to create private scopes?
 Code an example
