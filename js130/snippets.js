@@ -13,7 +13,18 @@ What do we mean by visibility scope? Code an example
 
 What do we mean by lexical scope? Code an example
 
-What is hoisting? Code an example  
+What is hoisting? Code an example 
+Hoisting is a mental model that explains the fact that, during the creation phase, 
+javascript locates all the identifier declarations and stores their locations and scopes.
+As a result, during the execution phase, javascript knows what variables exist and their
+scopes. From the developer's perspective, the  code acts like the declarations were
+moved to the tops of their respective scopes. 
+
+Example:
+*/
+a
+/*
+
 
 How do var, let, and const interact with hoisting? How do they differ? 
 Code examples 
