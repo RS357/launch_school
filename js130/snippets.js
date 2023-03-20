@@ -14,55 +14,32 @@ What do we mean by visibility scope? Code an example
 What do we mean by lexical scope? Code an example
 
 What is hoisting? Code an example 
-Hoisting is a mental model that explains the fact that, during the creation phase, 
-javascript locates all the identifier declarations and stores their locations and scopes.
-As a result, during the execution phase, javascript knows what variables exist and their
-scopes. From the developer's perspective, the  code acts like the declarations were
-moved to the tops of their respective scopes. 
-
-Example:
-*/
-a
-/*
-
 
 How do var, let, and const interact with hoisting? How do they differ? 
 Code examples 
 
 How do functions and classes interact with hoisting? How do they differ?
-Code examples
-
-How does hoisting really work?
-Code examples
 
 What is strict mode? How does it differ from sloppy mode?
 
-How do you enable strict mode at the global or function level?
+What are the benefits of strict mode?
+*/
 
-Describe how code behaves under both strict and sloppy mode.
-
-When is strict mode enabled automatically?
+/*
 
 When should you use (or not use) strict mode?
 
-What are the benefits of using strict mode?
-
 What is a closure? Provide an example. 
 
-When is a closure created? Code an example if you wish.
-
 What is the relationship between closures and scope? 
-
-What do we mean when we say that closures are defined lexically?
-Code an example if you wish.
 
 What is partial function application?
 Code an example if you wish.
 
-
 Explain why private data is desirable
 
-(IIFE = Immediately invoked function expressions)
+
+
 
 What are IIFEs? Code an example
 
