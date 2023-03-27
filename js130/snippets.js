@@ -45,16 +45,18 @@ What are IIFEs? Code an example
 
 How do you use IIFEs?
 
+You can use IIFEs to create inner scopes in large codebases and so 
+avoid accidentally reassigning variables that might be used in that codebase.
+
 How do you use IIFEs to create private scopes?
 Code an example
+
 
 How do you use blocks to create private scopes?
 Code an example
 
 How do you use IIFEs to create private data?
 Code an example
-
-
 
 Code snippets:
 
