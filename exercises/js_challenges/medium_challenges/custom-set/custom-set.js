@@ -66,13 +66,6 @@ class CustomSet {
         }
       }
     });
-    set2._forEach(val => {
-      if (this.contains(val)) {
-        if (!intersectionVals.includes(val)) {
-          intersectionVals.push(val);
-        }
-      }
-    });
     return intersectionVals;
   }
 
@@ -116,57 +109,67 @@ class CustomSet {
     }
   }
 
+  _getDifference(set2) {
+    let differenceVals = [];
+    this._forEach(val => {
+      if (!set2.contains(val)) {
+        if (!differenceVals.includes(val)) {
+          differenceVals.push(val);
+        }
+      }
+    });
+
+    return differenceVals;
+  }
+
+  difference(anotherCustomSet) {
+    if (this.isEmpty()) {
+      return new CustomSet();
+    } else {
+      let differenceVars = this._getDifference(anotherCustomSet);
+      return new CustomSet(differenceVars);
+    }
+  }
+
+  _getUnion(anotherCustomSet) {
+    let unionVals = [];
+    this._forEach(val => {
+      if (!unionVals.includes(val)) {
+        unionVals.push(val);
+      }
+    });
+    anotherCustomSet._forEach(val => {
+      if (!unionVals.includes(val)) {
+        unionVals.push(val);
+      }
+    });
+    return unionVals;
+  }
+
+  union(anotherCustomSet) {
+    if (this.isEmpty() && anotherCustomSet.isEmpty()) {
+      return new CustomSet();
+    } else if (this.isEmpty()) {
+      return anotherCustomSet;
+    } else if (anotherCustomSet.isEmpty()) {
+      return this;
+    } else {
+      let difference = this._getUnion(anotherCustomSet);
+      return new CustomSet(difference);
+    }
+  }
+
 }
 
 /*eslint-disable*/
 /*
-class CustomSet
-  instance methods:
-    intersection // given anotherCustomSet 
-      if either set is empty (or):
-        return true
-      else if this set has no shared elements with anotherCustomSet 
-        return empty array 
-      else if they share elements:
-        return an array of those shared elements
-       
-      
-
-    isSame // given newCustomSEt
-      if this set is empty and newCustomSet is empty:
-        return true
-      else if set is empty or newCustomSet is empty:
-        return false
-      else if 
-      
-
-    isDisjoint // given newCustomSet
-      if instance property setCollection is empty:
-        return true
-      else if setCollection of newCustomSet is empty:
-        return true
-
-    isSubSet // anotherSet
-      if setColletion length is 0:
-         return true 
-      else if anotherSet length is 0:
-        return false
-      else if all vals in setCollection are in setCollection of anotherSet:
-        return true
-
-    contains// given num
-      returns true if num is in setCollection
-    isEmpty
-      returns true if instance property setCollection is empty 
-
-  constructor: // given arr
-    set setCollection to copy of arr
-  instance properties:
-    declare empty array, setCollection
+difference // given anotherCustomSet
+  if this CustomSet or anotherCustomSet is empty:
+    return this CustomSet instance
+  else: 
+    set differenceVars variable to returned value of _getDifference method (passed this set and anotherCustomSet)
+    return difference instantiated as val to new CustomSet
 */
-
-let set = new CustomSet([1, 2]);
-console.log(set._noSharedElements(new CustomSet([3, 4])));
 
 
 module.exports = CustomSet;
